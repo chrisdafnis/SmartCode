@@ -13,10 +13,17 @@ namespace SmartCode
         {
             if (!IsAdmin())
             {
-                ((DataControlField)SupplierGridView.Columns
-                   .Cast<DataControlField>()
-                   .Where(fld => (fld.HeaderText == "Edit"))
-                   .SingleOrDefault()).Visible = false;
+                try
+                {
+                    ((DataControlField)SupplierGridView.Columns
+                       .Cast<DataControlField>()
+                       .Where(fld => (fld.HeaderText == "Edit"))
+                       .SingleOrDefault()).Visible = false;
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
 

@@ -11,21 +11,74 @@ body {
     padding-right: 15px;
 }
 
+.header {
+    /*padding-left: 15px;
+    padding-right: 15px;*/
+    background-color: #f90033;
+    color: #FFFFFF;
+    width: auto;
+    border-radius: 6px;
+    font-size: medium;
+    font-family: Tahoma;
+    font-weight: inherit;
+    list-style-type: disc;
+}
+
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #f90033;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+.button_image { 
+   border:1px solid #021a40;
+}
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
 textarea {
     max-width: 280px;
+    width: 29px;
 }
-
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .jumbotron {
         margin-top: 20px;
     }
-
     .body-content {
         padding: 0;
     }
 }
+
+.alternaterow {
+    background-color:lightblue;
+    }
+.alternaterow a {
+    color:cornflowerblue;
+    }
+.alternaterow a:hover {
+    color:red;
+    }
+
+.Enhance {
+    font-family: Tahoma;
+    font-size: large;
+    font-weight: bold;
+    color: #FF0000;
+}
+.boldText {
+    font-family: Tahoma;
+    font-size: medium;
+    font-weight: bold;
+    color: #000000;
+}
+.normal {
+    font-family: tahoma;
+    font-size: medium;
+    font-weight: normal;
+}
+

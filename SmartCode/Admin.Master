@@ -16,6 +16,8 @@
 
     <link href="Content/Menu.css" rel="stylesheet" type="text/css" />
 
+    <link href="Content/Site.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
     <form runat="server">
@@ -103,5 +105,7 @@
             </footer>
         </div>
     </form>
+    <p class="visible-md visible-sm">
+    </p>
 </body>
 </html>

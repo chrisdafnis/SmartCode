@@ -18,10 +18,17 @@ namespace SmartCode
 
             if (!IsAdmin())
             {
-                ((DataControlField)ProductGridView.Columns
-                   .Cast<DataControlField>()
-                   .Where(fld => (fld.HeaderText == "Edit"))
-                   .SingleOrDefault()).Visible = false;
+                try
+                {
+                    ((DataControlField)ProductGridView.Columns
+                       .Cast<DataControlField>()
+                       .Where(fld => (fld.HeaderText == "Edit"))
+                       .SingleOrDefault()).Visible = false;
+                }
+                catch(Exception)
+                {
+
+                }
             }
         }
 

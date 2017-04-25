@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Products" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="Items.aspx.cs" Inherits="SmartCode.Items" %>
+﻿<%@ Page Title="Products" EnableEventValidation="false" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="Items.aspx.cs" Inherits="SmartCode.Items" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <asp:LinqDataSource ID="ItemsDataSource" 

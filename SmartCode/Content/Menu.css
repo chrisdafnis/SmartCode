@@ -1,0 +1,54 @@
+﻿.NavBarMenu
+{
+    /*background-color: #f90033;*/
+    background-color: white;
+    color: #FFFFFF;
+    border-radius: 2px;
+    font-size: small;
+}
+
+.NavBarMenu ul
+{  
+    background:#f90033;
+    font-size: small;
+
+}
+
+.NavBarMenu ul li
+{
+    background:#f90033;
+    text-align:center;
+    width:220px;
+    font-size: small;
+
+}
+
+.NavBarMenu ul li a
+{
+    color: #FFFFFF;
+    padding: 4px 2px 4px;
+    padding-left:8px !important;
+    font-size: small;
+
+}
+
+.NavBarMenu ul li a:hover
+{
+    background-image: none;
+    font-size: small;
+
+}
+
+.NavBarMenu ul li a:hover
+    font-size: small;
+
+{
+    color: White;
+}
+
+.NavBarMenu ul li a
+{
+    color: white;
+    font-size: small;
+
+}
