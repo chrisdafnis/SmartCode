@@ -68,17 +68,14 @@ namespace SmartCode
 
                 double? grandtotal = null;
                 db.GetGrandTotalStockValue(ref grandtotal);
-                string[] MyArray = new string[2];
-                MyArray[0] = "Total Value";
+                string[] MyArray = new string[1];
                 if (grandtotal.HasValue)
                 {
-                    MyArray[1] = grandtotal.ToString();
+                    MyArray[0] = grandtotal.ToString();
                 }
 
                 TotalValueGridView.DataSource = MyArray.ToList();
                 TotalValueGridView.DataBind();
-
-                //BindBarcodesList();
             }
             catch (Exception)
             {
@@ -93,7 +90,29 @@ namespace SmartCode
 
         protected void StockValueGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "ID";
+                e.Row.Cells[0].Visible = false;
+                e.Row.Cells[1].Text = "Product Code";
+                e.Row.Cells[2].Text = "Description";
+                e.Row.Cells[3].Text = "Unit Of Measure";
+                e.Row.Cells[4].Text = "Quantity";
+                e.Row.Cells[5].Text = "Value/Unit";
+                e.Row.Cells[6].Text = "Total";
+            }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[0].Visible = false;
+            }
+        }
 
+        protected void TotalValueGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "Total Value";
+            }
         }
     }
 }

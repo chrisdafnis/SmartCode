@@ -36,15 +36,16 @@
                     <asp:BoundField DataField="ContactNo" HeaderText="Contact Number" SortExpression="ContactNo" ItemStyle-Width="125px" />
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" ItemStyle-Width="125px" />
                     <asp:BoundField DataField="WebSite" HeaderText="Web Site" SortExpression="WebSite" ItemStyle-Width="125px" />
-                    <asp:TemplateField ShowHeader="False">
+                    <asp:TemplateField ShowHeader="False" HeaderText="Edit">
                         <ItemTemplate>
                             <asp:LinkButton ID="EditButton"
                                             runat="server"
                                             CommandName="EditSupplier" 
-                                            Text="Edit" ItemStyle-Width="125px"/>
+                                            Text="Edit" 
+                                            ItemStyle-Width="125px"/>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField>
+                    <asp:TemplateField ShowHeader="False" HeaderText="Delete">
                         <ItemTemplate>
                         <asp:LinkButton ID="DeleteButton"
                                     Text="Delete"

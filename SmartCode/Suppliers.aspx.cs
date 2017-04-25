@@ -19,10 +19,14 @@ namespace SmartCode
                        .Cast<DataControlField>()
                        .Where(fld => (fld.HeaderText == "Edit"))
                        .SingleOrDefault()).Visible = false;
+
+                    ((DataControlField)SupplierGridView.Columns
+                       .Cast<DataControlField>()
+                       .Where(fld => (fld.HeaderText == "Delete"))
+                       .SingleOrDefault()).Visible = false;
                 }
                 catch (Exception)
                 {
-
                 }
             }
         }

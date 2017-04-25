@@ -17,9 +17,7 @@
                 ForeColor="#333333" 
                 GridLines="None" 
                 OnRowDataBound="StockValueGridView_RowDataBound" 
-                AllowSorting="True" 
-                ShowFooter="False" 
-                DataKeyNames="ProductId" ShowHeader="False" >
+                AllowSorting="True" ShowHeader="True" >
                 <AlternatingRowStyle CssClass="alternaterow" BackColor="White"></AlternatingRowStyle>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -40,7 +38,8 @@
                 GridLines="None" 
                 AllowSorting="True" 
                 ShowFooter="False" 
-                ShowHeader="False">
+                ShowHeader="True"
+                OnRowDataBound="TotalValueGridView_RowDataBound">
                 <AlternatingRowStyle CssClass="alternaterow" BackColor="White"></AlternatingRowStyle>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

@@ -44,28 +44,28 @@
         <elementListCompartment Id="37beb919-cec6-4504-a7f3-218bcac9ba95" absoluteBounds="0.765, 1.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.25 : 2.35659912109375); (9 : 2.35659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.25 : 2.35659912109375); (9 : 2.35659912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SmartCodeDataContext/Location/Location_PendingStockTake" />
       <nodes>
         <classShapeMoniker Id="cced731f-c5c1-49e9-9812-4ee4f1425f37" />
         <classShapeMoniker Id="93246b5e-5b88-435c-94c0-0af0222fd099" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 2.35659912109375); (6.25 : 2.35659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 2.35659912109375); (6.25 : 2.35659912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SmartCodeDataContext/Product/Product_Location" />
       <nodes>
         <classShapeMoniker Id="5184ac7f-ef76-484f-8f09-d134ce0893b3" />
         <classShapeMoniker Id="cced731f-c5c1-49e9-9812-4ee4f1425f37" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 1.28125); (9 : 1.28125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 1.28125); (9 : 1.28125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SmartCodeDataContext/Product/Product_PendingStockTake" />
       <nodes>
         <classShapeMoniker Id="5184ac7f-ef76-484f-8f09-d134ce0893b3" />
         <classShapeMoniker Id="93246b5e-5b88-435c-94c0-0af0222fd099" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 2.36620198567708); (3.5 : 2.36620198567708)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.36620198567708); (3.5 : 2.36620198567708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/SmartCodeDataContext/Supplier/Supplier_Product" />
       <nodes>
         <classShapeMoniker Id="6a1d98bf-bf81-4172-a96e-1ad7df90d953" />

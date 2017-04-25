@@ -32,7 +32,7 @@
                 OnRowCommand="ProductGridView_RowCommand" >
                 <AlternatingRowStyle CssClass="alternaterow"></AlternatingRowStyle>
                 <Columns>
-                    <asp:TemplateField>
+                    <asp:TemplateField ShowHeader="False" HeaderText="ID">
                         <ItemTemplate>
                             <asp:HiddenField ID="ProductId" runat="server" Value='<%# Eval("ProductId") %>' Visible="false"/>
                         </ItemTemplate>
@@ -46,7 +46,7 @@
                     <asp:BoundField DataField="Quantity" HeaderText="Quantity" SortExpression="Quantity" ItemStyle-HorizontalAlign ="Right" ItemStyle-Width="50px"/>
                     <asp:BoundField DataField="UnitOfMeasure" HeaderText="Unit Of Measure" SortExpression="UnitOfMeasure" ItemStyle-Width="100px"/>
                     <asp:BoundField DataField="UnitPrice" HeaderText="Unit Price" SortExpression="UnitPrice" ItemStyle-HorizontalAlign ="Right" ItemStyle-Width="100px"/>
-                    <asp:TemplateField ShowHeader="False">
+                    <asp:TemplateField ShowHeader="False" HeaderText="Edit">
                         <ItemTemplate>
                             <asp:LinkButton ID="EditButton"
                                             runat="server"
@@ -54,7 +54,7 @@
                                             Text="Edit" ItemStyle-Width="125px"/>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField>
+                    <asp:TemplateField ShowHeader="False" HeaderText="Delete">
                         <ItemTemplate>
                         <asp:LinkButton ID="DeleteButton"
                                     Text="Delete"

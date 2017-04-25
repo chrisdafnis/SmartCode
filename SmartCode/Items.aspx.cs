@@ -22,7 +22,17 @@ namespace SmartCode
                 {
                     ((DataControlField)ProductGridView.Columns
                        .Cast<DataControlField>()
+                       .Where(fld => (fld.HeaderText == "ID"))
+                       .SingleOrDefault()).Visible = false;
+
+                    ((DataControlField)ProductGridView.Columns
+                       .Cast<DataControlField>()
                        .Where(fld => (fld.HeaderText == "Edit"))
+                       .SingleOrDefault()).Visible = false;
+
+                    ((DataControlField)ProductGridView.Columns
+                       .Cast<DataControlField>()
+                       .Where(fld => (fld.HeaderText == "Delete"))
                        .SingleOrDefault()).Visible = false;
                 }
                 catch(Exception)
