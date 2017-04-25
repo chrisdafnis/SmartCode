@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SmartCode" Class="SmartCodeDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SHAREPOINT\SQLEXPRESS;Initial Catalog=SmartCode;Persist Security Info=True;User ID=sqluser" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SmartCodeConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AssetRegister" Member="AssetRegisters">
+    <Type Name="AssetRegister">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssetNo" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="AssetType" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="AssetDescription" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ValueNew" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PurchaseDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="LifeSpan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CheckFrequency" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NextCheckDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="EnergyRating" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="CurrentLocation" Type="System.String" DbType="VarChar(16)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TransactionLog" Member="TransactionLogs">
+    <Type Name="TransactionLog">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Product" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobNumber" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NewLocation" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PreviousLocation" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Location" Member="Locations">
+    <Type Name="Location">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LocationCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LocationType" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Association Name="Location_PendingStockTake" Member="PendingStockTakes" ThisKey="Id" OtherKey="LocationId" Type="PendingStockTake" />
+      <Association Name="Product_Location" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PendingStockTake" Member="PendingStockTakes">
+    <Type Name="PendingStockTake">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="QuantityInDB" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuantityInST" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Datestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Location_PendingStockTake" Member="Location" ThisKey="LocationId" OtherKey="Id" Type="Location" IsForeignKey="true" />
+      <Association Name="Product_PendingStockTake" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="BinLocation" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="FullDescription" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitOfMeasure" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Product_Location" Member="Locations" ThisKey="ProductId" OtherKey="ProductId" Type="Location" />
+      <Association Name="Product_PendingStockTake" Member="PendingStockTakes" ThisKey="ProductId" OtherKey="ProductId" Type="PendingStockTake" />
+      <Association Name="Supplier_Product" Member="Supplier" ThisKey="SupplierId" OtherKey="Id" Type="Supplier" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Security" Member="Securities">
+    <Type Name="Security">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="UserLevel" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Supplier" Member="Suppliers">
+    <Type Name="Supplier">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SupplierName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AddressLine1" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine2" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine3" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine4" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine5" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ContactNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WebSite" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Supplier_Product" Member="Products" ThisKey="Id" OtherKey="SupplierId" Type="Product" />
+    </Type>
+  </Table>
+  <Function Name="dbo.GetAllProductDetails" Method="GetAllProductDetails">
+    <ElementType Name="GetAllProductDetailsResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="BinLocation" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="FullDescription" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SupplierName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="SupplierCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitOfMeasure" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.WriteTransaction" Method="WriteTransaction">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="description" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="barcode" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="transactiontype" Type="System.String" DbType="NVarChar(3)" />
+    <Parameter Name="quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="jobnumber" Type="System.String" DbType="NVarChar(21)" />
+    <Parameter Name="newlocation" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="previouslocation" Type="System.String" DbType="NVarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetAllTransactionHistory" Method="GetAllTransactionHistory">
+    <Parameter Name="Barcode" Parameter="barcode" Type="System.String" DbType="VarChar(15)" />
+    <ElementType Name="GetAllTransactionHistoryResult">
+      <Column Name="Product" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobNumber" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="NewLocation" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PreviousLocation" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetGrandTotalStockValue" Method="GetGrandTotalStockValue">
+    <Parameter Name="GrandTotal" Parameter="grandTotal" Type="System.Double" DbType="Float" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetPendingStockTakes" Method="GetPendingStockTakes">
+    <ElementType Name="GetPendingStockTakesResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LocationCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="QuantityInST" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProduct" Method="GetProduct">
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetProductResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="BinLocation" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="FullDescription" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitOfMeasure" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProductDetails" Method="GetProductDetails">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetProductDetailsResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProductMovements" Method="GetProductMovements">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetProductMovementsResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="JobNumber" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetSupplier" Method="GetSupplier">
+    <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetSupplierResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AddressLine1" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine2" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine3" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine4" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine5" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ContactNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WebSite" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetTotalStockValue" Method="GetTotalStockValue">
+    <ElementType Name="GetTotalStockValueResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="UnitOfMeasure" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetTransactions" Method="GetTransactions">
+    <ElementType Name="GetTransactionsResult">
+      <Column Name="Product" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JobNumber" Type="System.String" DbType="VarChar(21)" CanBeNull="true" />
+      <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUser" Method="GetUser">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="GetUserResult">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="UserLevel" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertProduct" Method="InsertProduct">
+    <Parameter Name="new_id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="Barcode" Parameter="barcode" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="BinLocation" Parameter="binLocation" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="FullDescription" Parameter="fullDescription" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SupplierCode" Parameter="supplierCode" Type="System.String" DbType="NVarChar(25)" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UnitOfMeasure" Parameter="unitOfMeasure" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Double" DbType="Float" />
+    <ElementType Name="InsertProductResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertUser" Method="InsertUser">
+    <Parameter Name="Username" Parameter="username" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="UserLevel" Parameter="userLevel" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="InsertUserResult">
+      <Column Name="" Member="Column1" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchProducts" Method="SearchProducts">
+    <Parameter Name="SearchParam" Parameter="searchParam" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="SearchProductsResult">
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="[Bin Location]" Member="Bin_Location" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="FullDescription" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SupplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupplierCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitOfMeasure" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchSuppliers" Method="SearchSuppliers">
+    <Parameter Name="SearchParam" Parameter="searchParam" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="SearchSuppliersResult">
+      <Column Name="SupplierName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AddressLine1" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine2" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine3" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine4" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AddressLine5" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="ContactNo" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WebSite" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SearchUsers" Method="SearchUsers">
+    <Parameter Name="SearchParam" Parameter="searchParam" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="SearchUsersResult">
+      <Column Name="Username" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="UserLevel" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateLocationQuantity" Method="UpdateLocationQuantity">
+    <Parameter Name="LocationId" Parameter="locationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateProduct" Method="UpdateProduct">
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Barcode" Parameter="barcode" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="BinLocation" Parameter="binLocation" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="FullDescription" Parameter="fullDescription" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SupplierCode" Parameter="supplierCode" Type="System.String" DbType="NVarChar(25)" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UnitOfMeasure" Parameter="unitOfMeasure" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateSupplier" Method="UpdateSupplier">
+    <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SupplierName" Parameter="supplierName" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="AddressLine1" Parameter="addressLine1" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="AddressLine2" Parameter="addressLine2" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="AddressLine3" Parameter="addressLine3" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="AddressLine4" Parameter="addressLine4" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="AddressLine5" Parameter="addressLine5" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="ContactNo" Parameter="contactNo" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="WebSite" Parameter="webSite" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateUser" Method="UpdateUser">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Username" Parameter="username" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="UserLevel" Parameter="userLevel" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="CreatedDate" Parameter="createdDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="LastLoginDate" Parameter="lastLoginDate" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ValidateUser" Method="ValidateUser">
+    <Parameter Name="Username" Parameter="username" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="ValidateUserResult">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

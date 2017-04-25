@@ -1,0 +1,107 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="SmartCode.Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - SMARTcode Stock Control</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <link href="Content/Menu.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <br />
+        <div class="navbar navbar-fixed-top">
+            <div class="container header" style="background-color:White">
+                <table style="width: 100%">
+			        <tr>
+				        <td style="width: 85%">
+                            <img alt="Dakota logo" height="57" src="images/Dakota%20small.bmp" width="141" />
+                        </td>
+				        <td style="width: 15%">
+                            <img alt="Smartcode logo" height="41" src="images/smart%20code%20logo.jpg" width="190" />
+                        </td>
+                    </tr>
+                </table>
+                <asp:Menu ID="NavigationMenu" runat="server" EnableViewState="true" IncludeStyleBlock="true" Orientation="Horizontal" CssClass="NavBarMenu" width="100%" BackColor="#f90033">
+                    <StaticSelectedStyle BackColor="#f90033" />
+                    <Items>
+                        <asp:MenuItem Text="Products" Selectable="false">
+                            <asp:MenuItem NavigateUrl="~/Items.aspx" Text="Product List" Selectable="true" />
+                            <asp:MenuItem NavigateUrl="~/BookInItem.aspx" Text="Book In Product" Selectable="true" />
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Suppliers.aspx" Text="Supplier List" Selectable="true"/>
+                        <asp:MenuItem Text="Reports" Selectable="false">
+                            <asp:MenuItem NavigateUrl="~/StockTake.aspx" Text="Stock Take" Selectable="true"/>
+                            <asp:MenuItem NavigateUrl="~/StockValue.aspx" Text="Stock Value" Selectable="true"/>
+                            <asp:MenuItem NavigateUrl="~/ItemMovement.aspx" Text="Product Movement" Selectable="true"/>
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/History.aspx" Text="History" Selectable="true"/>
+                        <asp:MenuItem Text="Admin" Selectable="false">
+                            <asp:MenuItem NavigateUrl="~/AddNewItem.aspx" Text="Add Product" Selectable="true" />
+                            <asp:MenuItem NavigateUrl="~/AddNewSupplier.aspx" Text="Add Supplier" Selectable="true"/>
+                            <asp:MenuItem NavigateUrl="~/Users.aspx" Text="Users" Selectable="True" />
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Search.aspx" Text="Search" Selectable="true"/>
+                    </Items>
+                </asp:Menu>
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="container footer">
+            <footer>
+                <table style="width: 100%">
+			        <tr>
+                        <td style="width: 35%">
+                            &copy; <%: DateTime.Now.Year %> Dakota Integrated Solutions
+                        </td>
+                        <td style="width: 30%">
+                            Logged in as: 
+                            <asp:Label ID="Username" runat="server" Text="Label"></asp:Label>
+                        </td>
+                        <td style="width: 30%">
+                            User Level: 
+                            <asp:Label ID="Userlevel" runat="server" Text="Label"></asp:Label>
+                        </td>
+                        <td style="width: 5%">
+                            <asp:Button ID="logOutButton" runat="server" Text="Log Out" Width="100px" CausesValidation="false" OnClick="logOutButton_Click" />
+                        </td>
+                    </tr>
+                </table>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>
