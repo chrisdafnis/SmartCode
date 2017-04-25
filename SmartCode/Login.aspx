@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Login.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="SmartCode.LoginPage" %>
+﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Login.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="SmartCode.LoginPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <nav class="jumbotron">
         <nav class="dbtable">
