@@ -90,11 +90,11 @@ namespace SmartCode
         {
             if (IsAdmin())
             {
-                MasterPageFile = "~/AdminLevel.master";
+                MasterPageFile = "~/Admin.master";
             }
             else
             {
-                MasterPageFile = "~/UserLevel.master";
+                MasterPageFile = "~/User.master";
             }
         }
 

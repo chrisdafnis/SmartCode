@@ -14,6 +14,41 @@ namespace SmartCode
             ddlUserLevel.Items.Add(new ListItem("Administator", "1"));
             ddlUserLevel.Items.Add(new ListItem("User", "2"));
         }
+
+        void Page_PreInit(object sender, EventArgs e)
+        {
+            if (IsAdmin())
+            {
+                MasterPageFile = "~/Admin.master";
+            }
+            else
+            {
+                MasterPageFile = "~/User.master";
+            }
+        }
+
+        public bool IsAdmin()
+        {
+            Security state = (Security)Application["User"];
+            if (state != null)
+            {
+                if (((Security)Application["User"]).UserLevel == "Admin")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Context.GetOwinContext().Authentication.SignOut();
+                Response.Redirect("Login.aspx");
+                return false;
+            }
+        }
+
         protected void OnClickAddUser(object sender, EventArgs e)
         {
             // get data for new record from form
