@@ -178,13 +178,6 @@ namespace SmartCode
 			return ((ISingleResult<GetProductDetailsResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetProductMovements")]
-		public ISingleResult<GetProductMovementsResult> GetProductMovements([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="Int")] System.Nullable<int> iD)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD);
-			return ((ISingleResult<GetProductMovementsResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetSupplier")]
 		public ISingleResult<GetSupplierResult> GetSupplier([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SupplierId", DbType="Int")] System.Nullable<int> supplierId)
 		{
@@ -290,6 +283,13 @@ namespace SmartCode
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<GetTotalStockValueResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetProductMovements")]
+		public ISingleResult<GetProductMovementsResult> GetProductMovements([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ID", DbType="Int")] System.Nullable<int> iD, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="From", DbType="DateTime")] System.Nullable<System.DateTime> from, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="To", DbType="DateTime")] System.Nullable<System.DateTime> to)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, from, to);
+			return ((ISingleResult<GetProductMovementsResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -2904,158 +2904,6 @@ namespace SmartCode
 		}
 	}
 	
-	public partial class GetProductMovementsResult
-	{
-		
-		private int _ProductId;
-		
-		private string _Barcode;
-		
-		private string _Description;
-		
-		private string _TransactionType;
-		
-		private string _JobNumber;
-		
-		private System.Nullable<int> _Quantity;
-		
-		private System.Nullable<int> _UpdatedQuantity;
-		
-		private System.Nullable<System.DateTime> _DateStamp;
-		
-		public GetProductMovementsResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int NOT NULL")]
-		public int ProductId
-		{
-			get
-			{
-				return this._ProductId;
-			}
-			set
-			{
-				if ((this._ProductId != value))
-				{
-					this._ProductId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Barcode", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
-		public string Barcode
-		{
-			get
-			{
-				return this._Barcode;
-			}
-			set
-			{
-				if ((this._Barcode != value))
-				{
-					this._Barcode = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(30)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this._Description = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionType", DbType="VarChar(3)")]
-		public string TransactionType
-		{
-			get
-			{
-				return this._TransactionType;
-			}
-			set
-			{
-				if ((this._TransactionType != value))
-				{
-					this._TransactionType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNumber", DbType="VarChar(21)")]
-		public string JobNumber
-		{
-			get
-			{
-				return this._JobNumber;
-			}
-			set
-			{
-				if ((this._JobNumber != value))
-				{
-					this._JobNumber = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
-		public System.Nullable<int> Quantity
-		{
-			get
-			{
-				return this._Quantity;
-			}
-			set
-			{
-				if ((this._Quantity != value))
-				{
-					this._Quantity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedQuantity", DbType="Int")]
-		public System.Nullable<int> UpdatedQuantity
-		{
-			get
-			{
-				return this._UpdatedQuantity;
-			}
-			set
-			{
-				if ((this._UpdatedQuantity != value))
-				{
-					this._UpdatedQuantity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateStamp", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateStamp
-		{
-			get
-			{
-				return this._DateStamp;
-			}
-			set
-			{
-				if ((this._DateStamp != value))
-				{
-					this._DateStamp = value;
-				}
-			}
-		}
-	}
-	
 	public partial class GetSupplierResult
 	{
 		
@@ -4157,6 +4005,158 @@ namespace SmartCode
 				if ((this._Total != value))
 				{
 					this._Total = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetProductMovementsResult
+	{
+		
+		private int _ProductId;
+		
+		private string _Barcode;
+		
+		private string _Description;
+		
+		private string _TransactionType;
+		
+		private string _JobNumber;
+		
+		private System.Nullable<int> _Quantity;
+		
+		private System.Nullable<int> _UpdatedQuantity;
+		
+		private System.Nullable<System.DateTime> _DateStamp;
+		
+		public GetProductMovementsResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int NOT NULL")]
+		public int ProductId
+		{
+			get
+			{
+				return this._ProductId;
+			}
+			set
+			{
+				if ((this._ProductId != value))
+				{
+					this._ProductId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Barcode", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
+		public string Barcode
+		{
+			get
+			{
+				return this._Barcode;
+			}
+			set
+			{
+				if ((this._Barcode != value))
+				{
+					this._Barcode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(30)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionType", DbType="VarChar(3)")]
+		public string TransactionType
+		{
+			get
+			{
+				return this._TransactionType;
+			}
+			set
+			{
+				if ((this._TransactionType != value))
+				{
+					this._TransactionType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNumber", DbType="VarChar(21)")]
+		public string JobNumber
+		{
+			get
+			{
+				return this._JobNumber;
+			}
+			set
+			{
+				if ((this._JobNumber != value))
+				{
+					this._JobNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
+		public System.Nullable<int> Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this._Quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedQuantity", DbType="Int")]
+		public System.Nullable<int> UpdatedQuantity
+		{
+			get
+			{
+				return this._UpdatedQuantity;
+			}
+			set
+			{
+				if ((this._UpdatedQuantity != value))
+				{
+					this._UpdatedQuantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateStamp", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateStamp
+		{
+			get
+			{
+				return this._DateStamp;
+			}
+			set
+			{
+				if ((this._DateStamp != value))
+				{
+					this._DateStamp = value;
 				}
 			}
 		}

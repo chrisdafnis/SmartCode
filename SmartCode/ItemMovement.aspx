@@ -1,9 +1,25 @@
 ﻿<%@ Page Title="Product Movement" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="ItemMovement.aspx.cs" Inherits="SmartCode.ItemMovement" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <nav class="jumbotron">
-        <p>Item Movement</p>
-        <p><span style="font-size:14px;"><asp:DropDownList ID="ddlItem" runat="server" Width="250px" OnSelectedIndexChanged="ddlItem_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList></span></p>
-        <nav class="dbtable">
+        <p>
+            <asp:Label ID="lblTitle" runat="server" Text="Label">Product Movement</asp:Label>
+        <p>
+            <span style="font-size:14px;"><asp:DropDownList ID="ddlItem" runat="server" Width="250px" AutoPostBack="True"></asp:DropDownList></span>
+        </p>
+
+        <nav class="normal">
+            <asp:Label ID="lblSearchPeriod" runat="server" Text="Label">Search Period</asp:Label><br />
+            From:<asp:TextBox ID="txtFrom" runat="server" Width="150px" />  
+            <cc1:CalendarExtender ID="CalendarFrom" PopupButtonID="imgPopup" runat="server" TargetControlID="txtFrom" Format="dd/MM/yyyy" />  
+            To:<asp:TextBox ID="txtTo" runat="server"  Width="150px"/>  
+            <cc1:CalendarExtender ID="CalendarTo" PopupButtonID="imgPopup" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" />  
+        </nav>
+        <br />
+        <asp:Button ID="ButtonSearch" runat="server" Text="Search" OnClick="ButtonSearch_Click" CssClass="normal" Width="250px" />
+
+        <div class="dbtable" id="divPrint">
             <asp:GridView ID="ItemMovementGridView" 
                 runat="server" 
                 CellPadding="4"
@@ -42,6 +58,9 @@
             </asp:SqlDataSource>
             <asp:LinqDataSource ID="LinqDataSource1" runat="server" EntityTypeName="">
             </asp:LinqDataSource>
-        </nav>
+            <br />
+            <asp:Button ID="btnPrint" runat="server" Text="Print" onClick="PrintCurrentPage" CssClass="button" Width="250px" />
+            
+        </div>
     </nav>
 </asp:Content>
