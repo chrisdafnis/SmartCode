@@ -45,7 +45,7 @@
                     <td><asp:TextBox ID="txtUnitOfMeasure" runat="server" Width="180px" Enabled="False"></asp:TextBox></td>
                 </tr>
                 <tr>
-                    <td><asp:Button ID="btnPrintLabel" runat="server" Text="Print Label" CssClass="button" /></td>
+                    <td><asp:Button ID="btnPrintLabel" runat="server" Text="Print Label" CssClass="button" OnClick="btnPrintLabel_Click" /></td>
                 </tr>
             </table>
         </nav>
@@ -54,7 +54,7 @@
             <table>
                 <tr>
                     <td>
-                        <asp:GridView ID="ProductLocationsGridView" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" OnRowDataBound="ProductLocationsGridView_RowDataBound" Width="218px">
+                        <asp:GridView ID="ProductLocationsGridView" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" Width="218px">
                             <AlternatingRowStyle BackColor="White" />
                             <EditRowStyle BackColor="#2461BF" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

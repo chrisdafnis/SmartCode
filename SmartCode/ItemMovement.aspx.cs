@@ -51,7 +51,6 @@ namespace SmartCode
             if (!Page.IsPostBack)
             {
                 BindDDL();
-                //BindGrid();
             }
         }
 
@@ -109,15 +108,11 @@ namespace SmartCode
             }
             Page pg = new Page();
             pg.EnableEventValidation = false;
-            //if (Script != string.Empty)
-            //{
-            //    pg.ClientScript.RegisterStartupScript(pg.GetType(), "PrintJavaScript", Script);
-            //}
+
             HtmlForm frm = new HtmlForm();
             pg.Controls.Add(frm);
             frm.Attributes.Add("runat", "server");
             frm.Controls.Add(lblTitle);
-            frm.Controls.Add(lblSearchPeriod);
             frm.Controls.Add(txtFrom);
             frm.Controls.Add(txtTo);
             frm.Controls.Add(ItemMovementGridView);
@@ -133,24 +128,15 @@ namespace SmartCode
 
         private string TweakHTMLForPrint(string strHTML)
         {
-            strHTML = strHTML.Replace("<span id=\"lblTitle\">Product Movement</span>", "<span id=\"lblTitle\"><h1>Product Movement</h1></span><br>");
-            strHTML = strHTML.Replace("<span id=\"lblSearchPeriod\">Search Period</span>", "<span id=\"lblSearchPeriod\"><h2>Search Period</h2></span><br>");
-            strHTML = strHTML.Replace("<input name=\"txtFrom\" type=\"text\" value=\"", "<span id=\"txtFrom\">");
-            strHTML = strHTML.Replace("\" id=\"txtFrom\" style=\"width:150px;\" />", "</span>");
-            strHTML = strHTML.Replace("</span><input name=\"txtTo\" type=\"text\" value=\"", "</span> - <span id=\"txtTo\">");
-            strHTML = strHTML.Replace("\" id=\"txtTo\" style=\"width:150px;\" />", "</span>");
-
+            strHTML = strHTML.Replace("<form method=\"post\" action=\"./ItemMovement\" id=\"ctl00\" runat=\"server\">", "<form method=\"post\" action=\"./ItemMovement\" id=\"ctl00\" runat=\"server\" target=\"_blank\"><font face=\"verdana\" size=\"2\">");
+            strHTML = strHTML.Replace("<span id=\"lblTitle\">Product Movement</span>", "<table cellspacing=\"4\"><tr><td><h2><b>Product Movement</b></h2></td>");
+            strHTML = strHTML.Replace("<input name=\"txtFrom\" type=\"text\" value=\"", "<td align=\"right\"><h3><b>");
+            strHTML = strHTML.Replace("\" id=\"txtFrom\" style=\"width:150px;\" />", "");
+            strHTML = strHTML.Replace("<input name=\"txtTo\" type=\"text\" value=\"", " - ");
+            strHTML = strHTML.Replace("\" id=\"txtTo\" style=\"width:150px;\" />", "</b></h3></td></tr></table>");
+            strHTML = strHTML.Replace("<table cellspacing=\"4\" cellpadding=\"4\"", "<table border=\"1\" cellpadding=\"0\" cellspacing=\"0\"");
+            strHTML = strHTML.Replace("</form>", "</font></form>");
             return strHTML;
-        }
-
-        private string RenderControl(Control ctrl)
-        {
-            StringBuilder sb = new StringBuilder();
-            StringWriter tw = new StringWriter(sb);
-            HtmlTextWriter hw = new HtmlTextWriter(tw);
-
-            ctrl.RenderControl(hw);
-            return sb.ToString();
         }
 
         protected void ButtonSearch_Click(object sender, EventArgs e)

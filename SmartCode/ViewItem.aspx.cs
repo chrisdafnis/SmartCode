@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using RawPrint;
+using System.Text;
 
 namespace SmartCode
 {
@@ -197,26 +200,19 @@ namespace SmartCode
             }
         }
 
-        protected void ProductLocationsGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+
+        protected void btnPrintLabel_Click(object sender, EventArgs e)
         {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    string toolTip = String.Empty;
-            //    string temp = DataBinder.Eval(e.Row.DataItem, "LocationType", string.Empty);
-            //    switch (temp)
-            //    {
-            //        case "BULK":
-            //            {
-            //                toolTip = "Internal Product Movement";
-            //            }
-            //            break;
-            //        case "PICK":
-            //            {
-            //                toolTip = "Stock Take Update";
-            //            }
-            //            break;
-            //    }
-            //    e.Row.Cells[1].ToolTip = toolTip;
+            string zpl = "^XA" +
+                        @"^MMT" +
+                        @"^PW408" +
+                        @"^LL0200" +
+                        @"^LS0" +
+                        @"^FT16,43^A0N,24,24^FH\^FD"+ txtDescription.Text  + "^FS" +
+                        @"^BY2,3,66^FT20,142^BCN,,N,N,A^FD" + txtBarcode.Text + "^FS" +
+                        @"^FT90,170^A0N,24,24^FH\^FD" + txtBarcode.Text + "^FS" +
+                        @"^PQ1,0,1,Y^XZ";
+            Printer.PrintStream("ZDesigner GK420t", new MemoryStream(Encoding.UTF8.GetBytes(zpl)), "");
         }
     }
 }

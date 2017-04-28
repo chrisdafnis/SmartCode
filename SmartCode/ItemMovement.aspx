@@ -17,7 +17,7 @@
             <cc1:CalendarExtender ID="CalendarTo" PopupButtonID="imgPopup" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" />  
         </nav>
         <br />
-        <asp:Button ID="ButtonSearch" runat="server" Text="Search" OnClick="ButtonSearch_Click" CssClass="normal" Width="250px" />
+        <asp:Button ID="ButtonSearch" runat="server" Text="Search" OnClick="ButtonSearch_Click" CssClass="button" />
 
         <div class="dbtable" id="divPrint">
             <asp:GridView ID="ItemMovementGridView" 
@@ -59,8 +59,7 @@
             <asp:LinqDataSource ID="LinqDataSource1" runat="server" EntityTypeName="">
             </asp:LinqDataSource>
             <br />
-            <asp:Button ID="btnPrint" runat="server" Text="Print" onClick="PrintCurrentPage" CssClass="button" Width="250px" />
-            
+            <asp:Button ID="btnPrint" runat="server" Text="Print" onClick="PrintCurrentPage" CssClass="button" />
         </div>
     </nav>
 </asp:Content>
