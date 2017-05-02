@@ -104,6 +104,8 @@ namespace SmartCode
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Cells[0].Visible = false;
+                e.Row.Cells[5].CssClass = "Sterling";
+                e.Row.Cells[6].CssClass = "Sterling";
             }
         }
 
@@ -112,6 +114,10 @@ namespace SmartCode
             if (e.Row.RowType == DataControlRowType.Header)
             {
                 e.Row.Cells[0].Text = "Total Value";
+            }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[0].CssClass = "Sterling";
             }
         }
     }

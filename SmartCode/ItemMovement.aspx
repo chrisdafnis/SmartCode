@@ -2,18 +2,24 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>  
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <link rel="stylesheet" href="/Content/print.css" type="text/css" media="print" />
+    <script type="text/javascript">
+        function Print() {
+            window.print();
+        }
+    </script>
     <nav class="jumbotron">
         <p>
             <asp:Label ID="lblTitle" runat="server" Text="Label">Product Movement</asp:Label>
         <p>
-            <span style="font-size:14px;"><asp:DropDownList ID="ddlItem" runat="server" Width="250px" AutoPostBack="True"></asp:DropDownList></span>
+            <span style="font-size:14px;"><asp:DropDownList ID="ddlItem" runat="server" Width="250px" CssClass="DropDown" AutoPostBack="True"></asp:DropDownList></span>
         </p>
 
         <nav class="normal">
-            <asp:Label ID="lblSearchPeriod" runat="server" Text="Label">Search Period</asp:Label><br />
-            From:<asp:TextBox ID="txtFrom" runat="server" Width="150px" />  
+            <asp:Label ID="lblSearchPeriod" runat="server" Text="Label" CssClass="Label">Search Period</asp:Label><br ID="break"/>
+            <asp:Label ID="Label1" runat="server" Text="Label" CssClass="Label">From:</asp:Label><asp:TextBox ID="txtFrom" runat="server" Width="150px" CssClass="TextBox"/>  
             <cc1:CalendarExtender ID="CalendarFrom" PopupButtonID="imgPopup" runat="server" TargetControlID="txtFrom" Format="dd/MM/yyyy" />  
-            To:<asp:TextBox ID="txtTo" runat="server"  Width="150px"/>  
+            <asp:Label ID="Label2" runat="server" Text="Label" CssClass="Label">To:</asp:Label><asp:TextBox ID="txtTo" runat="server"  Width="150px" CssClass="TextBox"/>  
             <cc1:CalendarExtender ID="CalendarTo" PopupButtonID="imgPopup" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" />  
         </nav>
         <br />
@@ -58,8 +64,7 @@
             </asp:SqlDataSource>
             <asp:LinqDataSource ID="LinqDataSource1" runat="server" EntityTypeName="">
             </asp:LinqDataSource>
-            <br />
-            <asp:Button ID="btnPrint" runat="server" Text="Print" onClick="PrintCurrentPage" CssClass="button" />
         </div>
+        <asp:Button ID="btnPrint" runat="server" Text="Print" OnClientClick="Print()" CssClass="button" value="Print" />
     </nav>
 </asp:Content>
