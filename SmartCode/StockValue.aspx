@@ -5,20 +5,26 @@
     <script type="text/javascript"> 
         String.prototype.reverse = function () {return this.split('').reverse().join('')}; 
 
-        function Sterling (d) {this.ammount = typeof d == 'number' ? d : Number(d.toString().replace(/[£,]/g, ''))}; 
+        function Sterling(d) {
+            this.amount = typeof d == 'number' ? d : Number(d.toString().replace(/[£,]/g, ''))
+        }; 
 
-        Sterling.prototype.valueOf = function () {return this.ammount}; 
+        Sterling.prototype.valueOf = function () {return this.amount}; 
 
         Sterling.prototype.toString = function () { 
-            if (isNaN (this.ammount)) return NaN.toString(); 
-            var l = Math.floor(Math.abs(this.ammount)).toString(); 
-            var r = Math.round((Math.abs(this.ammount) % 1) * 100).toString(); 
-            return [(this.ammount < 0 ? '-' : ''), '£', (l.length > 4 ? l.reverse().match(/\d{1,3}/g).join(',').reverse() : l),'.', (r < 10 ? '0' + r : r)].join(''); 
+            if (isNaN (this.amount)) return NaN.toString(); 
+            var l = Math.floor(Math.abs(this.amount)).toString(); 
+            var r = Math.round((Math.abs(this.amount) % 1) * 100).toString(); 
+            return [(this.amount < 0 ? '-' : ''), '£', (l.length > 4 ? l.reverse().match(/\d{1,3}/g).join(',').reverse() : l),'.', (r < 10 ? '0' + r : r)].join(''); 
         } 
 
         if (document.getElementsByTagName) onload = function () {
         var e, i;
-                for (i = 0; e = document.getElementsByTagName('td')[i]; i++) { if (/Sterling/i.test(e.className)) e.firstChild.data = new Sterling (e.firstChild.data)}
+        for (i = 0; e = document.getElementsByTagName('td')[i]; i++) {
+            if (/Sterling/i.test(e.className))
+                e.firstChild.data = new Sterling(e.firstChild.data)
+                e.style = 'text-align: right';
+            }
         }
         
         function Print() {

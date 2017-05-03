@@ -76,6 +76,8 @@ nav p {
 
 table {
     width: 100%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 table, th, td {
@@ -91,6 +93,6 @@ th, td {
 }
 
 th {
-    background-color: #4CAF50!important;
-    color: white!important;
+    background-color: #c2bdbd;
+    color: #ffffff;
 }
