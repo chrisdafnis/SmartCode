@@ -54,7 +54,7 @@ namespace SmartCode
             // get data for new record from form
             string userName = txtUserName.Text;
             string password = txtPassword.Text;
-            string userLevel = ddlUserLevel.SelectedItem.Value;
+            string userLevel = ddlUserLevel.SelectedItem.Text;
 
             // write new record to database
             Security secr = new Security();
