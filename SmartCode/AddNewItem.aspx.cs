@@ -72,9 +72,10 @@ namespace SmartCode
                 db.InsertProduct(ref productId, barcode, description, binLocation, fullDescription, selectedSupplier, supplierCode, quantity, unitOfMeasure, unitPrice);
                 db.SubmitChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                //this.ErrorTextBox.Text = ex.Message;
+                //this.ErrorUpdatePanel.Update();
             }
 
             WriteToLog(productId, description, barcode, "ADP", quantity, null, null, null);

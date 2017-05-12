@@ -77,7 +77,7 @@ namespace SmartCode
             try
             {
                 DateTime? fromDate = Convert.ToDateTime(txtFrom.Text);
-                DateTime? toDate = Convert.ToDateTime(txtTo.Text);
+                DateTime? toDate = Convert.ToDateTime(txtTo.Text + " 23:59:59");
                 int selectedValue = Convert.ToInt32(ddlItem.SelectedValue);
 
                 SmartCodeDataContext db = new SmartCodeDataContext();

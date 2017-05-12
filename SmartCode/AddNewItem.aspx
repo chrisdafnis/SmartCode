@@ -112,6 +112,11 @@
             <br />
             <asp:Button ID="btnAddProduct" runat="server" Text="Add Product" OnClick="OnClickAddProduct" CssClass="button" />
             <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="OnClickCancel" CausesValidation="false" CssClass="button" />
+<%--            <asp:UpdatePanel runat="server" ID="ErrorUpdatePanel" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:TextBox id="ErrorTextBox" runat="server" Width="100%" />
+                </ContentTemplate>
+            </asp:UpdatePanel>--%>
         </nav>
     </nav>
 </asp:Content>
