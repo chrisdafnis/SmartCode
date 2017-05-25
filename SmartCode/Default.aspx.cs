@@ -9,38 +9,42 @@ namespace SmartCode
 {
     public partial class _Default : Page
     {
-        void Page_PreInit(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsAdmin())
-            {
-                MasterPageFile = "~/Admin.master";
-            }
-            else
-            {
-                MasterPageFile = "~/User.master";
-            }
+            Response.Redirect("items.aspx");
         }
+        //void Page_PreInit(object sender, EventArgs e)
+        //{
+        //    if (IsAdmin())
+        //    {
+        //        MasterPageFile = "~/Admin.master";
+        //    }
+        //    else
+        //    {
+        //        MasterPageFile = "~/User.master";
+        //    }
+        //}
 
-        public bool IsAdmin()
-        {
-            Security state = (Security)Application["User"];
-            if (state != null)
-            {
-                if (((Security)Application["User"]).UserLevel == "Admin")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                Context.GetOwinContext().Authentication.SignOut();
-                Response.Redirect("Login.aspx");
-                return false;
-            }
-        }
+        //public bool IsAdmin()
+        //{
+        //    Security state = (Security)Application["User"];
+        //    if (state != null)
+        //    {
+        //        if (((Security)Application["User"]).UserLevel == "Admin")
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Context.GetOwinContext().Authentication.SignOut();
+        //        Response.Redirect("Login.aspx");
+        //        return false;
+        //    }
+        //}
     }
 }

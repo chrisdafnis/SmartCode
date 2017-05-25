@@ -187,6 +187,7 @@
     <Content Include="images\favicon.ico" />
     <Content Include="images\smart code logo.jpg" />
     <Content Include="images\smart code transparent logo.png" />
+    <Content Include="images\sodexo.png" />
     <Content Include="ItemMovement.aspx" />
     <Content Include="Items.aspx" />
     <Content Include="Login.aspx" />

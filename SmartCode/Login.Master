@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - SMARTcode Stock Control</title>
+    <title><%: Page.Title %> - Sodexo Stock Control</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -47,7 +47,7 @@
                             <img alt="Dakota logo" height="57" src="images/Dakota%20small.bmp" width="141" />
                         </td>
 				        <td style="width: 15%">
-                            <img alt="Smartcode logo" height="41" src="images/smart%20code%20logo.jpg" width="190" />
+                            <img alt="Sodexo logo" height="57" src="images/sodexo.png" />
                         </td>
                     </tr>
                 </table>
