@@ -36,6 +36,11 @@ body {
    border:1px solid #021a40;
 }
 
+.button { 
+    width: 100px;
+    font-size: 11px;
+} 
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,

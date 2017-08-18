@@ -26,10 +26,11 @@ namespace SmartCode
             public string FullDescription { get; set; }
             public int Quantity { get; set; }
             public string SupplierName { get; set; }
+            public string SupplierCode { get; set; }
             public string UnitOfMeasure { get; set; }
             public double? UnitPrice { get; set; }
 
-            public LocalProduct(int productId, string barcode, string binLocation, string description, string fullDescription, int quantity, string supplierName, string unitOfMeasure, double? unitPrice)
+            public LocalProduct(int productId, string barcode, string binLocation, string description, string fullDescription, int quantity, string supplierName, string supplierCode, string unitOfMeasure, double? unitPrice)
             {
                 ProductId = productId;
                 Barcode = barcode;
@@ -38,6 +39,7 @@ namespace SmartCode
                 FullDescription = fullDescription;
                 Quantity = quantity;
                 SupplierName = supplierName;
+                SupplierCode = supplierCode;
                 UnitOfMeasure = unitOfMeasure;
                 UnitPrice = unitPrice;
             }
@@ -58,7 +60,7 @@ namespace SmartCode
             // populate the item fields
             SmartCodeDataContext db = new SmartCodeDataContext();
             var prodQuery = db.Products.Join(db.Suppliers, pr => pr.SupplierId, su => su.Id, (pr, su) =>
-                new { pr.ProductId, pr.Barcode, pr.BinLocation, pr.Description, pr.FullDescription, pr.Quantity, su.SupplierName, pr.UnitOfMeasure, pr.UnitPrice })
+                new { pr.ProductId, pr.Barcode, pr.BinLocation, pr.Description, pr.FullDescription, pr.Quantity, su.SupplierName, pr.SupplierCode, pr.UnitOfMeasure, pr.UnitPrice })
                 .Where(p => p.ProductId == itemID);
 
             IEnumerable<LocalProduct> product = from item in prodQuery.AsEnumerable()
@@ -69,6 +71,7 @@ namespace SmartCode
                                                                          item.FullDescription,
                                                                          item.Quantity,
                                                                          item.SupplierName,
+                                                                         item.SupplierCode,
                                                                          item.UnitOfMeasure,
                                                                          item.UnitPrice);
 
@@ -80,6 +83,7 @@ namespace SmartCode
                 txtDescription.Text = product.First<LocalProduct>().Description;
                 txtFullDescription.Text = product.First<LocalProduct>().FullDescription;
                 txtSupplier.Text = product.First<LocalProduct>().SupplierName;
+                txtSupplierCode.Text = product.First<LocalProduct>().SupplierCode;
                 txtUnitOfMeasure.Text = product.First<LocalProduct>().UnitOfMeasure;
                 txtUnitPrice.Text = product.First<LocalProduct>().UnitPrice.ToString();
 

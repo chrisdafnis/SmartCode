@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Stock Value" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="StockValue.aspx.cs" Inherits="SmartCode.StockValue" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <link rel="stylesheet" href="/Content/print.css" type="text/css" media="print" />
-    <link rel="stylesheet" href="/Content/Site.css" type="text/css"  />
+    <link rel="stylesheet" href="Content/print.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="Content/Site.css" type="text/css"  />
     <script type="text/javascript"> 
         String.prototype.reverse = function () {return this.split('').reverse().join('')}; 
 

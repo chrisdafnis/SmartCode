@@ -2,7 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>  
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
-    <link rel="stylesheet" href="/Content/print.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="print.css" type="text/css" media="print" />
     <script type="text/javascript">
         function Print() {
             window.print();
