@@ -171,6 +171,7 @@ namespace SmartCode
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
                     pdfDoc.Open();
                     iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
+                    iTextSharp.text.Font bolldfont5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5, Font.BOLD);
 
                     PdfPTable table = new PdfPTable(dt.Columns.Count);
                     PdfPRow row = null;
@@ -209,7 +210,7 @@ namespace SmartCode
                     foreach (DataColumn c in dt.Columns)
                     {
 
-                        table.AddCell(new Phrase(c.ColumnName, font5));
+                        table.AddCell(new Phrase(c.ColumnName, bolldfont5));
                     }
 
                     foreach (DataRow r in dt.Rows)

@@ -191,6 +191,7 @@ namespace SmartCode
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
                     pdfDoc.Open();
                     iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
+                    iTextSharp.text.Font bolldfont5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5, Font.BOLD);
 
                     PdfPTable table = new PdfPTable(dt.Columns.Count);
                     PdfPRow row = null;
@@ -203,15 +204,6 @@ namespace SmartCode
                     cell.Colspan = dt.Columns.Count;
                     cell.Padding = 5;
                     table.AddCell(cell);
-
-                    // add some further details, product reporting period
-                    //ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 10, Font.BOLD);
-                    //title = string.Format("{0}, {1}-{2}", result.Description, txtFrom.Text, txtTo.Text);
-                    //chunkCols = new Chunk(title, ColFont);
-                    //cell = new PdfPCell(new Paragraph(chunkCols));
-                    //cell.Colspan = dt.Columns.Count;
-                    //cell.Padding = 5;
-                    //table.AddCell(cell);
 
                     table.HeaderRows = 4;
 
@@ -229,7 +221,7 @@ namespace SmartCode
                     foreach (DataColumn c in dt.Columns)
                     {
 
-                        table.AddCell(new Phrase(c.ColumnName, font5));
+                        table.AddCell(new Phrase(c.ColumnName, bolldfont5));
                     }
 
                     foreach (DataRow r in dt.Rows)
@@ -241,8 +233,12 @@ namespace SmartCode
                             table.AddCell(new Phrase(r[2].ToString(), font5));
                             table.AddCell(new Phrase(r[3].ToString(), font5));
                             table.AddCell(new Phrase(r[4].ToString(), font5));
-                            table.AddCell(new Phrase("£" + r[5].ToString(), font5));
-                            table.AddCell(new Phrase("£" + r[6].ToString(), font5));
+                            PdfPCell currencyCell = new PdfPCell(new Phrase("£" + r[5].ToString(), font5));
+                            currencyCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            table.AddCell(currencyCell);
+                            currencyCell = new PdfPCell(new Phrase("£" + r[6].ToString(), font5));
+                            currencyCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            table.AddCell(currencyCell);
                         }
                     }
 
@@ -255,8 +251,10 @@ namespace SmartCode
                     table.AddCell(new Phrase("", TotalFont));
                     table.AddCell(new Phrase("", TotalFont));
                     table.AddCell(new Phrase("", TotalFont));
-                    table.AddCell(new Phrase("£" + grandtotal.ToString(), TotalFont));
-
+                    PdfPCell totalCell = new PdfPCell(new Phrase("£" + grandtotal.ToString(), TotalFont));
+                    totalCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                    table.AddCell(totalCell);
+                    
                     ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 6, Font.BOLD);
                     String footer = string.Format("Report generated at: {0}", DateTime.Now.ToString());
                     chunkCols = new Chunk(footer, ColFont);
