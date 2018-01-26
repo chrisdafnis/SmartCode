@@ -11,6 +11,7 @@ namespace SmartCode
     {
         private int itemID = 0;
         GetProductResult currentProduct = new GetProductResult();
+        int quantity = 0;
 
         void Page_PreInit(object sender, EventArgs e)
         {
@@ -63,7 +64,8 @@ namespace SmartCode
                 txtFullDescription.Text = currentProduct.FullDescription;
                 SupplierDropDownList.SelectedIndex = Convert.ToInt32(currentProduct.SupplierId);
                 txtSupplierCode.Text = currentProduct.SupplierCode;
-                txtQuantity.Text = currentProduct.Quantity.ToString();
+                quantity = currentProduct.Quantity;
+                //txtQuantity.Text = currentProduct.Quantity.ToString();
                 txtUnitOfMeasure.Text = currentProduct.UnitOfMeasure;
                 txtUnitPrice.Text = currentProduct.UnitPrice.ToString();
             }
@@ -91,12 +93,15 @@ namespace SmartCode
                                     txtFullDescription.Text,
                                     Convert.ToInt32(SupplierDropDownList.SelectedValue),
                                     txtSupplierCode.Text,
-                                    int.Parse(txtQuantity.Text),
+                                    quantity,
+                                    //int.Parse(txtQuantity.Text),
                                     txtUnitOfMeasure.Text,
                                     Convert.ToDouble(txtUnitPrice.Text));
+                //db.up
 
                 db.SubmitChanges();
-                WriteToLog(currentProduct.ProductId, txtDescription.Text, txtBarcode.Text, "STU", int.Parse(txtQuantity.Text), null, null, null);
+                //WriteToLog(currentProduct.ProductId, txtDescription.Text, txtBarcode.Text, "STU", int.Parse(txtQuantity.Text), null, null, null);
+                WriteToLog(currentProduct.ProductId, txtDescription.Text, txtBarcode.Text, "STU", quantity, null, null, null);
             }
             catch (Exception)
             {

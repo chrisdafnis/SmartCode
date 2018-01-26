@@ -199,14 +199,6 @@ namespace SmartCode
 			return ((ISingleResult<GetUserResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertProduct")]
-		public ISingleResult<InsertProductResult> InsertProduct([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> new_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Barcode", DbType="NVarChar(15)")] string barcode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Description", DbType="NVarChar(30)")] string description, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BinLocation", DbType="NVarChar(5)")] string binLocation, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FullDescription", DbType="NVarChar(50)")] string fullDescription, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SupplierId", DbType="Int")] System.Nullable<int> supplierId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SupplierCode", DbType="NVarChar(25)")] string supplierCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="Int")] System.Nullable<int> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitOfMeasure", DbType="NVarChar(5)")] string unitOfMeasure, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitPrice", DbType="Float")] System.Nullable<double> unitPrice)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), new_id, barcode, description, binLocation, fullDescription, supplierId, supplierCode, quantity, unitOfMeasure, unitPrice);
-			new_id = ((System.Nullable<int>)(result.GetParameterValue(0)));
-			return ((ISingleResult<InsertProductResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertUser")]
 		public ISingleResult<InsertUserResult> InsertUser([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Username", DbType="NVarChar(20)")] string username, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Password", DbType="NVarChar(20)")] string password, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UserLevel", DbType="NVarChar(20)")] string userLevel)
 		{
@@ -290,6 +282,21 @@ namespace SmartCode
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iD, from, to);
 			return ((ISingleResult<GetProductMovementsResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertProduct")]
+		public ISingleResult<InsertProductResult> InsertProduct([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> new_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Barcode", DbType="NVarChar(15)")] string barcode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Description", DbType="NVarChar(30)")] string description, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BinLocation", DbType="NVarChar(5)")] string binLocation, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="FullDescription", DbType="NVarChar(50)")] string fullDescription, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SupplierId", DbType="Int")] System.Nullable<int> supplierId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SupplierCode", DbType="NVarChar(25)")] string supplierCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitOfMeasure", DbType="NVarChar(5)")] string unitOfMeasure, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitPrice", DbType="Float")] System.Nullable<double> unitPrice)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), new_id, barcode, description, binLocation, fullDescription, supplierId, supplierCode, unitOfMeasure, unitPrice);
+			new_id = ((System.Nullable<int>)(result.GetParameterValue(0)));
+			return ((ISingleResult<InsertProductResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.InsertLocation")]
+		public int InsertLocation([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LocationCode", DbType="NVarChar(5)")] string locationCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Barcode", DbType="NVarChar(15)")] string barcode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="Int")] System.Nullable<int> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="LocationType", DbType="NVarChar(4)")] string locationType)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), productId, locationCode, barcode, quantity, locationType);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -3324,32 +3331,6 @@ namespace SmartCode
 		}
 	}
 	
-	public partial class InsertProductResult
-	{
-		
-		private System.Nullable<int> _ProductId;
-		
-		public InsertProductResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int")]
-		public System.Nullable<int> ProductId
-		{
-			get
-			{
-				return this._ProductId;
-			}
-			set
-			{
-				if ((this._ProductId != value))
-				{
-					this._ProductId = value;
-				}
-			}
-		}
-	}
-	
 	public partial class InsertUserResult
 	{
 		
@@ -4157,6 +4138,32 @@ namespace SmartCode
 				if ((this._DateStamp != value))
 				{
 					this._DateStamp = value;
+				}
+			}
+		}
+	}
+	
+	public partial class InsertProductResult
+	{
+		
+		private System.Nullable<int> _ProductId;
+		
+		public InsertProductResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int")]
+		public System.Nullable<int> ProductId
+		{
+			get
+			{
+				return this._ProductId;
+			}
+			set
+			{
+				if ((this._ProductId != value))
+				{
+					this._ProductId = value;
 				}
 			}
 		}

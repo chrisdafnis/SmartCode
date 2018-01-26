@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [sqluser]
+    WITH PASSWORD = N'oni0`itijc|@sluORix6naqWmsFT7_&#$!~<<moCf<s{ra6e', SID = 0x8C797928D91C2C41B13296254FD52067, DEFAULT_DATABASE = [SmartCode], DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

@@ -3,11 +3,19 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
     <link rel="stylesheet" href="print.css" type="text/css" media="print" />
-    <script type="text/javascript">
-        function Print() {
-            window.print();
+<%--    <script type="text/javascript">
+        function Print(strid) {
+            var prtContent = document.getElementById(strid);
+             var WinPrint =
+            window.open('','','letf=0,top=0,width=1,height=1,toolbar=0,scrollbars=0,sta¬tus=0');
+             WinPrint.document.write(prtContent.innerHTML);
+             WinPrint.document.close();
+             WinPrint.focus();
+             WinPrint.print();
+             WinPrint.close();
+             prtContent.innerHTML=strOldOne;
         }
-    </script>
+    </script>--%>
     <nav class="jumbotron">
         <p>
             <asp:Label ID="lblTitle" runat="server" Text="Label">Product Movement</asp:Label>
@@ -34,6 +42,8 @@
                 GridLines="None" 
                 AllowPaging="True" 
                 AllowSorting="True" 
+                OnPageIndexChanging="gridView_PageIndexChanging"
+                OnSorting="gridView_Sorting"
                 DataKeyNames="ProductId" AutoGenerateColumns="False">
                 <AlternatingRowStyle CssClass="alternaterow" BackColor="White"></AlternatingRowStyle>
                 <Columns>
@@ -65,6 +75,7 @@
             <asp:LinqDataSource ID="LinqDataSource1" runat="server" EntityTypeName="">
             </asp:LinqDataSource>
         </div>
-        <asp:Button ID="btnPrint" runat="server" Text="Print" OnClientClick="Print()" CssClass="button" value="Print" />
+        <%--<asp:Button ID="btnPrint" runat="server" Text="Print" CssClass="button" />--%>
+        <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="button" OnClick="btnExport_Click" />
     </nav>
 </asp:Content>

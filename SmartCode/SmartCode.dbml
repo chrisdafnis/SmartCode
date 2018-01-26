@@ -204,21 +204,6 @@
       <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.InsertProduct" Method="InsertProduct">
-    <Parameter Name="new_id" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Parameter Name="Barcode" Parameter="barcode" Type="System.String" DbType="NVarChar(15)" />
-    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(30)" />
-    <Parameter Name="BinLocation" Parameter="binLocation" Type="System.String" DbType="NVarChar(5)" />
-    <Parameter Name="FullDescription" Parameter="fullDescription" Type="System.String" DbType="NVarChar(50)" />
-    <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="SupplierCode" Parameter="supplierCode" Type="System.String" DbType="NVarChar(25)" />
-    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UnitOfMeasure" Parameter="unitOfMeasure" Type="System.String" DbType="NVarChar(5)" />
-    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Double" DbType="Float" />
-    <ElementType Name="InsertProductResult">
-      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.InsertUser" Method="InsertUser">
     <Parameter Name="Username" Parameter="username" Type="System.String" DbType="NVarChar(20)" />
     <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NVarChar(20)" />
@@ -344,5 +329,27 @@
       <Column Name="UpdatedQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.InsertProduct" Method="InsertProduct">
+    <Parameter Name="new_id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="Barcode" Parameter="barcode" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Description" Parameter="description" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="BinLocation" Parameter="binLocation" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="FullDescription" Parameter="fullDescription" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SupplierCode" Parameter="supplierCode" Type="System.String" DbType="NVarChar(25)" />
+    <Parameter Name="UnitOfMeasure" Parameter="unitOfMeasure" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Double" DbType="Float" />
+    <ElementType Name="InsertProductResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertLocation" Method="InsertLocation">
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LocationCode" Parameter="locationCode" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="Barcode" Parameter="barcode" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LocationType" Parameter="locationType" Type="System.String" DbType="NVarChar(4)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

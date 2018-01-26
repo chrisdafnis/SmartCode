@@ -26,10 +26,6 @@
                 e.style = 'text-align: right';
             }
         }
-        
-        function Print() {
-            window.print();
-        }
     </script>
 
     <nav class="jumbotron">
@@ -85,6 +81,6 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
         </nav>
-        <asp:Button ID="btnPrint" runat="server" Text="Print" OnClientClick="Print()" CssClass="button" value="Print" />
+        <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="button" OnClick="btnExport_Click" />
     </nav>
 </asp:Content>

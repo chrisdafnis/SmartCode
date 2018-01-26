@@ -61,7 +61,7 @@ namespace SmartCode
             int selectedSupplier = 1;
             Int32.TryParse(SupplierDropDownList.SelectedValue, out selectedSupplier);
             string supplierCode = txtSupplierCode.Text;
-            int quantity = Convert.ToInt32(txtQuantity.Text);
+            //int quantity = Convert.ToInt32(txtQuantity.Text);
             string unitOfMeasure = txtUnitOfMeasure.Text;
             double unitPrice = Convert.ToDouble(txtUnitPrice.Text);
 
@@ -69,7 +69,8 @@ namespace SmartCode
             try
             {
                 SmartCodeDataContext db = new SmartCodeDataContext();
-                db.InsertProduct(ref productId, barcode, description, binLocation, fullDescription, selectedSupplier, supplierCode, quantity, unitOfMeasure, unitPrice);
+                db.InsertProduct(ref productId, barcode, description, binLocation, fullDescription, selectedSupplier, supplierCode, /*quantity,*/ unitOfMeasure, unitPrice);
+                db.InsertLocation(productId, binLocation, barcode, 0, "BULK");
                 db.SubmitChanges();
             }
             catch (Exception ex)
@@ -78,7 +79,7 @@ namespace SmartCode
                 //this.ErrorUpdatePanel.Update();
             }
 
-            WriteToLog(productId, description, barcode, "ADP", quantity, null, null, null);
+            WriteToLog(productId, description, barcode, "ADP", /*quantity*/0, null, null, null);
             ReturnToItems();
         }
 

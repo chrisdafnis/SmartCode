@@ -75,7 +75,7 @@
                     <td>Supplier Code</td>
                     <td><asp:TextBox ID="txtSupplierCode" runat="server" Width="180px"></asp:TextBox></td>
                 </tr>                
-                <tr>
+                <%--<tr>
                     <td>Quantity</td>
                     <td>
                         <asp:TextBox ID="txtQuantity" runat="server" Width="180px"></asp:TextBox>
@@ -85,7 +85,7 @@
                           ForeColor="Red">
                         </asp:RequiredFieldValidator>
                     </td>
-                </tr>                
+                </tr>   --%>             
                 <tr>
                     <td>Unit Of Measure</td>
                     <td>

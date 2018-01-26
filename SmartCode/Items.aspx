@@ -75,6 +75,7 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
+            <asp:Button ID="btnAddItem" runat="server" Text="Add Product" OnClick="OnClickAddProduct" CssClass="button" />
         </nav>
     </nav>
 </asp:Content>

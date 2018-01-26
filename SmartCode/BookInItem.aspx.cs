@@ -62,7 +62,8 @@ namespace SmartCode
             {
                 txtDescription.Text = prod.Description;
                 lbTitle.Text = "Book In Item";
-                txtLocation.Enabled = true;
+                txtLocation.Enabled = false;
+                txtLocation.Text = prod.BinLocation;
                 txtQuantity.Enabled = true;
                 btBookInProduct.Enabled = true;
                 txtLocation.Attributes["required"] = "true";
@@ -116,7 +117,7 @@ namespace SmartCode
                 {
                     // location doesn't exist, so create new one
                     loc = new Location();
-                    loc.LocationCode = location;
+                    loc.LocationCode = product.BinLocation;
                     loc.LocationType = "BULK";
                     loc.ProductId = product.ProductId;
                     loc.Product.Description = product.Description;
