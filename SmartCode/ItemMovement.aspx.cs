@@ -59,6 +59,8 @@ namespace SmartCode
             if (!Page.IsPostBack)
             {
                 BindDDL();
+                ViewState["SortColumn"] = "DateStamp";
+                ViewState["SortDirection"] = "ASC";
             }
         }
 
@@ -90,8 +92,9 @@ namespace SmartCode
 
                 SmartCodeDataContext db = new SmartCodeDataContext();
                 var products = db.GetProductMovements(selectedValue, fromDate, toDate).ToList();
-
-                ItemMovementGridView.DataSource = products;
+                DataTable dataTable = LINQResultToDataTable(products);
+                dataTable.DefaultView.Sort = ViewState["SortColumn"].ToString() + " " + ViewState["SortDirection"].ToString();
+                ItemMovementGridView.DataSource = dataTable;
                 ItemMovementGridView.DataBind();
             }
             catch (Exception)
@@ -113,8 +116,6 @@ namespace SmartCode
         public DataTable LINQResultToDataTable<T>(IEnumerable<T> Linqlist)
         {
             DataTable dt = new DataTable();
-
-
             PropertyInfo[] columns = null;
 
             if (Linqlist == null) return dt;
@@ -158,16 +159,14 @@ namespace SmartCode
             {
                 using (HtmlTextWriter hw = new HtmlTextWriter(sw))
                 {
-                    DateTime? fromDate = Convert.ToDateTime(txtFrom.Text);
-                    DateTime? toDate = Convert.ToDateTime(txtTo.Text + " 23:59:59");
-                    int selectedValue = Convert.ToInt32(ddlItem.SelectedValue);
+                    BindGrid();
+                    DataView dv = new DataView(ItemMovementGridView.DataSource as DataTable);
+                    dv.Sort = ViewState["SortColumn"].ToString() + " " + ViewState["SortDirection"].ToString();
+                    DataTable dt = dv.ToTable();
 
-                    SmartCodeDataContext db = new SmartCodeDataContext();
-                    var products = db.GetProductMovements(selectedValue, fromDate, toDate).ToList();
-                    GetProductMovementsResult result = (GetProductMovementsResult)products[0];
-                    
-                    DataTable dt = LINQResultToDataTable(products);
                     Document pdfDoc = new Document();
+                    pdfDoc.SetPageSize(PageSize.A4);
+                    pdfDoc.SetPageSize(PageSize.A4.Rotate());
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
                     pdfDoc.Open();
                     iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
@@ -187,7 +186,8 @@ namespace SmartCode
 
                     // add some further details, product reporting period
                     ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 10, Font.BOLD);
-                    title = string.Format("{0}, {1}-{2}", result.Description, txtFrom.Text, txtTo.Text);
+                    string item = ddlItem.SelectedItem.Text;
+                    title = string.Format("{0}, {1}-{2}", item, txtFrom.Text, txtTo.Text);
                     chunkCols = new Chunk(title, ColFont);
                     cell = new PdfPCell(new Paragraph(chunkCols));
                     cell.Colspan = dt.Columns.Count;
@@ -251,13 +251,8 @@ namespace SmartCode
 
         protected void gridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            DateTime? fromDate = Convert.ToDateTime(txtFrom.Text);
-            DateTime? toDate = Convert.ToDateTime(txtTo.Text + " 23:59:59");
-            int selectedValue = Convert.ToInt32(ddlItem.SelectedValue);
-
-            SmartCodeDataContext db = new SmartCodeDataContext();
-            var products = db.GetProductMovements(selectedValue, fromDate, toDate).ToList();
-            DataTable dataTable = LINQResultToDataTable(products);
+            BindGrid();
+            DataTable dataTable = ItemMovementGridView.DataSource as DataTable;
             string sortDirection = "ASC";
             if (ViewState["SortColumnDirection"].ToString() == "Descending")
                 sortDirection = "DESC";
@@ -272,13 +267,8 @@ namespace SmartCode
 
         protected void gridView_Sorting(object sender, GridViewSortEventArgs e)
         {
-            DateTime? fromDate = Convert.ToDateTime(txtFrom.Text);
-            DateTime? toDate = Convert.ToDateTime(txtTo.Text + " 23:59:59");
-            int selectedValue = Convert.ToInt32(ddlItem.SelectedValue);
-
-            SmartCodeDataContext db = new SmartCodeDataContext();
-            var products = db.GetProductMovements(selectedValue, fromDate, toDate).ToList();
-            DataTable dataTable = LINQResultToDataTable(products);
+            BindGrid();
+            DataTable dataTable = ItemMovementGridView.DataSource as DataTable;
 
             if (dataTable != null)
             {

@@ -188,6 +188,8 @@ namespace SmartCode
 
                     DataTable dt = LINQResultToDataTable(stockValue);
                     Document pdfDoc = new Document();
+                    pdfDoc.SetPageSize(PageSize.A4);
+                    pdfDoc.SetPageSize(PageSize.A4.Rotate());
                     PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
                     pdfDoc.Open();
                     iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
