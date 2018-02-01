@@ -59,7 +59,7 @@
                         <asp:LinkButton ID="DeleteButton"
                                     Text="Delete"
                                     CommandName="DeleteProduct" 
-                                    OnClientClick="return confirm('Are you sure you want to delete this user?')"
+                                    OnClientClick="return confirm('Are you sure you want to delete this product?')"
                                     runat="server" ItemStyle-Width="125px"/>
                         </ItemTemplate>
                     </asp:TemplateField>
