@@ -194,6 +194,9 @@ goto :eof
 :MSDeployWithArgMsDeployAdditionalFlag
 echo. %_MSDeployCommandline% %_MsDeployAdditionalFlags% %_ArgMsDeployAdditionalFlags:&=^&%
 %_MSDeployCommandline% %_MsDeployAdditionalFlags% %_ArgMsDeployAdditionalFlags:&=^&%
+IF %ERRORLEVEL% NEQ 0 (
+  exit 1
+)
 goto :eof
 
 @rem ---------------------------------------------------------------------------------
@@ -202,6 +205,9 @@ goto :eof
 :MSDeployWithOutArgMsDeployAdditionalFlag
 echo. %_MSDeployCommandline% %_MsDeployAdditionalFlags%
 %_MSDeployCommandline% %_MsDeployAdditionalFlags%
+IF %ERRORLEVEL% NEQ 0 (
+  exit 1
+)
 goto :eof
 
 @rem ---------------------------------------------------------------------------------

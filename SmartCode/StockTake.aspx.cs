@@ -19,9 +19,9 @@ namespace SmartCode
         protected void Page_Load(object sender, EventArgs e)
         {
             SmartCodeDataContext db = new SmartCodeDataContext();
-            var pending = db.GetPendingStockTakes();
+            var pending = db.GetAllPendingStockTakes();
 
-            PendingGridView.DataSource = pending.ToList<GetPendingStockTakesResult>();
+            PendingGridView.DataSource = pending.ToList<GetAllPendingStockTakesResult>();
             PendingGridView.DataBind();
         }
 
@@ -70,42 +70,14 @@ namespace SmartCode
                     if (actualValue.Text != String.Empty)
                     {
                         SmartCodeDataContext db = new SmartCodeDataContext();
-                        DataKeyArray keys = PendingGridView.DataKeys;
-                        DataKey rowKeys = keys[row.RowIndex];
+                        DataKey rowKeys = PendingGridView.DataKeys[row.RowIndex];
                         int transactionId = (int)rowKeys["Id"];
                         int productId = (int)rowKeys["ProductId"];
                         int locationId = (int)rowKeys["LocationId"];
+                        GetPendingStockTakeResult pending = db.GetPendingStockTake(transactionId).ToList<GetPendingStockTakeResult>()[0];
 
-                        var selectquery2 = from l in db.Locations
-                                           where l.ProductId == productId &&
-                                                l.Id == locationId
-                                           select l;
-
-                        string barcode = String.Empty;
-                        string location = String.Empty;
-                        foreach (Location loc in selectquery2)
-                        {
-                            loc.Quantity = Convert.ToInt32(actualValue.Text);
-                            barcode = loc.Barcode;
-                            location = loc.LocationCode;
-
-                            // update stock in location
-                            db.UpdateLocationQuantity(locationId, productId, loc.Quantity);
-                        }
-
-                        // delete record from pending
-                        var deletequery = from t in db.PendingStockTakes
-                                          where t.ProductId == productId &&
-                                                t.LocationId == locationId
-                                          select t;
-
-                        string description = null;
-                        foreach (PendingStockTake pst in deletequery)
-                        {
-                            description = pst.Product.Description;
-                            db.PendingStockTakes.DeleteOnSubmit(pst);
-                        }
-
+                        db.UpdateLocationQuantity(pending.LocationId, pending.ProductId, Convert.ToInt32(actualValue.Text));
+                        db.UpdatePendingStockTake(pending.Id, pending.ProductId, pending.Barcode);
                         try
                         {
                             db.SubmitChanges();
@@ -114,8 +86,7 @@ namespace SmartCode
                         {
 
                         }
-
-                        WriteToLog(productId, description, barcode, "STU", Convert.ToInt32(actualValue.Text), null, location, null);
+                        WriteToLog(productId, pending.ToString(), pending.Barcode, "STU", Convert.ToInt32(actualValue.Text), null, pending.LocationCode, null);
 
                         Response.Redirect(Request.RawUrl);
                     }
@@ -151,7 +122,7 @@ namespace SmartCode
             {
                 // check the date on the stock take items, and if they are older than one week, highlight in red
 
-                GetPendingStockTakesResult row = (GetPendingStockTakesResult)e.Row.DataItem;
+                GetAllPendingStockTakesResult row = (GetAllPendingStockTakesResult)e.Row.DataItem;
                 DateTime? datestamp = row.DateStamp;
 
                 TimeSpan timespan = new TimeSpan(7, 0, 0, 0);
