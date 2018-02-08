@@ -106,6 +106,12 @@
                           ErrorMessage="Unit Price is a required field."
                           ForeColor="Red">
                         </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator id="RegularExpressionValidator1" runat="server"
+                           ControlToValidate="txtUnitPrice"
+                           ValidationExpression="^[0-9]\d*(\.\d+)?$"
+                           ForeColor="Red"
+                           ErrorMessage="Please enter numeric values only" >
+                           </asp:RegularExpressionValidator>
                     </td>
                 </tr>
             </table>

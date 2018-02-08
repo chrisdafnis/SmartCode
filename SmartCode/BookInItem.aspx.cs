@@ -53,35 +53,28 @@ namespace SmartCode
             string barcode = txtBarcode.Text;
             txtDescription.Text = string.Empty;
             SmartCodeDataContext db = new SmartCodeDataContext();
-            SearchProductsResult product = db.SearchProducts(barcode).First<SearchProductsResult>();
-
-            //var products = (from p in db.Products
-            //                where p.Barcode == barcode
-            //                select p).Distinct();
-
-            //foreach (Product prod in products)
-            //{
-            if (product != null)
-            { 
-                txtDescription.Text = product.Description;
-                lbTitle.Text = "Book In Item";
-                txtLocation.Enabled = false;
-                txtLocation.Text = product.Bin_Location;
-                txtQuantity.Enabled = true;
-                btBookInProduct.Enabled = true;
-                txtLocation.Attributes["required"] = "true";
-                txtQuantity.Attributes["required"] = "true";
-            }
-
-            if (txtDescription.Text == string.Empty)
+            if (db.SearchProducts(barcode).Count<SearchProductsResult>() > 0)
             {
-                txtDescription.Text = "Barcode not found.";
-                lbTitle.Text = "Search for Product";
-                txtLocation.Enabled = false;
-                txtQuantity.Enabled = false;
-                btBookInProduct.Enabled = false;
-                txtLocation.Attributes["required"] = "false";
-                txtQuantity.Attributes["required"] = "false";
+                SearchProductsResult product = db.SearchProducts(barcode).First<SearchProductsResult>();
+                if (product != null)
+                {
+                    txtBarcode.Text = product.Barcode;
+                    txtDescription.Text = product.Description;
+                    lbTitle.Text = "Book In Item";
+                    txtLocation.Enabled = false;
+                    txtLocation.Text = product.Bin_Location;
+                    txtQuantity.Enabled = true;
+                    btBookInProduct.Enabled = true;
+                }
+
+                if (txtDescription.Text == string.Empty)
+                {
+                    txtDescription.Text = "Barcode not found.";
+                    lbTitle.Text = "Search for Product";
+                    txtLocation.Enabled = false;
+                    txtQuantity.Enabled = false;
+                    btBookInProduct.Enabled = false;
+                }
             }
         }
 

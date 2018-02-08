@@ -42,16 +42,20 @@
                     <td>Quantity</td>
                     <td>
                         <asp:TextBox ID="txtQuantity" runat="server" Width="180px" Enabled="false"></asp:TextBox>
-                        <asp:RangeValidator runat="server" Type="Integer" 
+                        <asp:RangeValidator ID="RangeValidator1" runat="server" Type="Integer" 
                             MinimumValue="1" MaximumValue="9999999" ControlToValidate="txtQuantity" 
-                            ErrorMessage="Value must be a whole number, 1 or greater" />
+                            ErrorMessage="Value must be a whole number, 1 or greater" ForeColor="Red"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator id="RequiredFieldValidator2" runat="server"
+                          ControlToValidate="txtBarcode"
+                          ErrorMessage="Value is a required field."
+                          ForeColor="Red"> </asp:RequiredFieldValidator>
                     </td>
                 </tr>
             </table>
             <br />
             <asp:Button ID="btSearchForProduct" runat="server" Text="Search" OnClick="OnClickSearchForProduct" CssClass="button" />
             <asp:Button ID="btBookInProduct" runat="server" OnClick="btBookInProduct_Click" Text="Book In" Enabled="false" CssClass="button" />
-            <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="OnClickCancel" CausesValidation="false" CssClass="button" />
+            <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="OnClickCancel" CausesValidation="false" EnableClientScript="False" CssClass="button" />
         </nav>
     </nav>
 </asp:Content>
