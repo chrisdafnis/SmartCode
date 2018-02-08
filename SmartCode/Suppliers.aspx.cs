@@ -129,15 +129,8 @@ namespace SmartCode
         private void DeleteSupplier(int supplierId)
         {
             SmartCodeDataContext db = new SmartCodeDataContext();
-            var remove = (from aremove in db.Suppliers
-                          where aremove.Id == supplierId
-                          select aremove).FirstOrDefault();
-
-            if (remove != null)
-            {
-                db.Suppliers.DeleteOnSubmit(remove);
-                db.SubmitChanges();
-            }
+            db.DeleteSupplier(supplierId);
+            Response.Redirect("Suppliers.aspx");
         }
     }
 }

@@ -312,6 +312,13 @@ namespace SmartCode
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
 			return ((ISingleResult<GetPendingStockTakeResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.DeleteSupplier")]
+		public int DeleteSupplier([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SupplierId", DbType="Int")] System.Nullable<int> supplierId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), supplierId);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AssetRegister")]

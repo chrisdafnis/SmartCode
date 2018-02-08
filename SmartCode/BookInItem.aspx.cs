@@ -53,17 +53,20 @@ namespace SmartCode
             string barcode = txtBarcode.Text;
             txtDescription.Text = string.Empty;
             SmartCodeDataContext db = new SmartCodeDataContext();
+            SearchProductsResult product = db.SearchProducts(barcode).First<SearchProductsResult>();
 
-            var products = (from p in db.Products
-                            where p.Barcode == barcode
-                            select p).Distinct();
+            //var products = (from p in db.Products
+            //                where p.Barcode == barcode
+            //                select p).Distinct();
 
-            foreach (Product prod in products)
-            {
-                txtDescription.Text = prod.Description;
+            //foreach (Product prod in products)
+            //{
+            if (product != null)
+            { 
+                txtDescription.Text = product.Description;
                 lbTitle.Text = "Book In Item";
                 txtLocation.Enabled = false;
-                txtLocation.Text = prod.BinLocation;
+                txtLocation.Text = product.Bin_Location;
                 txtQuantity.Enabled = true;
                 btBookInProduct.Enabled = true;
                 txtLocation.Attributes["required"] = "true";

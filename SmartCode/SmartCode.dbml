@@ -371,4 +371,8 @@
       <Column Name="DateStamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.DeleteSupplier" Method="DeleteSupplier">
+    <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

@@ -200,6 +200,16 @@ namespace SmartCode
                             toolTip = "Product Booked In";
                         }
                         break;
+                    case "PIC":
+                        {
+                            toolTip = "Product Manually Booked In";
+                        }
+                        break;
+                    case "EDI":
+                        {
+                            toolTip = "Record Edited";
+                        }
+                        break;
                 }
                 e.Row.Cells[2].ToolTip = toolTip;
             }

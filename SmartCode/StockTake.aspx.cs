@@ -86,7 +86,7 @@ namespace SmartCode
                         {
 
                         }
-                        WriteToLog(productId, pending.ToString(), pending.Barcode, "STU", Convert.ToInt32(actualValue.Text), null, pending.LocationCode, null);
+                        WriteToLog(productId,"Stock Take", pending.Barcode, "STU", Convert.ToInt32(actualValue.Text), null, pending.LocationCode, null);
 
                         Response.Redirect(Request.RawUrl);
                     }

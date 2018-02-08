@@ -49,7 +49,7 @@
                         <ItemTemplate>
                         <asp:LinkButton ID="DeleteButton"
                                     Text="Delete"
-                                    CommandName="DeletSupplier" 
+                                    CommandName="DeleteSupplier" 
                                     OnClientClick="return confirm('Are you sure you want to delete this supplier?')"
                                     runat="server" ItemStyle-Width="125px" />
                         </ItemTemplate>

@@ -61,12 +61,7 @@ namespace SmartCode
             try
             {
                 SmartCodeDataContext db = new SmartCodeDataContext();
-                //var transactions = db.GetAllTransactionHistory(null);
                 var transactions = db.GetTotalStockValue();
-                //load the grid
-                //var transactions = (from tl in db.TransactionLogs
-                //                    select new { tl.Barcode, tl.Product, tl.TransactionType, tl.Quantity, tl.JobNumber, tl.NewLocation, tl.PreviousLocation, tl.DateStamp })
-                //                    .OrderByDescending(tl => tl.DateStamp).ToList();//.ToList<GetTransactionsResult>();
 
                 StockValueGridView.DataSource = transactions.ToList();
                 StockValueGridView.DataBind();
@@ -173,18 +168,10 @@ namespace SmartCode
             {
                 using (HtmlTextWriter hw = new HtmlTextWriter(sw))
                 {
-                    //DateTime? fromDate = Convert.ToDateTime(txtFrom.Text);
-                    //DateTime? toDate = Convert.ToDateTime(txtTo.Text + " 23:59:59");
-                    //int selectedValue = Convert.ToInt32(ddlItem.SelectedValue);
-
                     SmartCodeDataContext db = new SmartCodeDataContext();
                     var stockValue = db.GetTotalStockValue();
                     double? grandtotal = null;
                     db.GetGrandTotalStockValue(ref grandtotal);
-
-                    //TotalValueGridView.DataSource = MyArray.ToList();
-                    //TotalValueGridView.DataBind();
-                    //GetProductMovementsResult result = (GetProductMovementsResult)products[0];
 
                     DataTable dt = LINQResultToDataTable(stockValue);
                     Document pdfDoc = new Document();
@@ -235,10 +222,12 @@ namespace SmartCode
                             table.AddCell(new Phrase(r[2].ToString(), font5));
                             table.AddCell(new Phrase(r[3].ToString(), font5));
                             table.AddCell(new Phrase(r[4].ToString(), font5));
-                            PdfPCell currencyCell = new PdfPCell(new Phrase("£" + r[5].ToString(), font5));
+                            decimal value = Convert.ToDecimal(r[5]);
+                            PdfPCell currencyCell = new PdfPCell(new Phrase(value.ToString("C"), font5));
                             currencyCell.HorizontalAlignment = Element.ALIGN_RIGHT;
                             table.AddCell(currencyCell);
-                            currencyCell = new PdfPCell(new Phrase("£" + r[6].ToString(), font5));
+                            value = Convert.ToDecimal(r[6]);
+                            currencyCell = new PdfPCell(new Phrase(value.ToString("C"), font5));
                             currencyCell.HorizontalAlignment = Element.ALIGN_RIGHT;
                             table.AddCell(currencyCell);
                         }
@@ -253,7 +242,8 @@ namespace SmartCode
                     table.AddCell(new Phrase("", TotalFont));
                     table.AddCell(new Phrase("", TotalFont));
                     table.AddCell(new Phrase("", TotalFont));
-                    PdfPCell totalCell = new PdfPCell(new Phrase("£" + grandtotal.ToString(), TotalFont));
+                    decimal grandTotDecimal = Convert.ToDecimal(grandtotal);
+                    PdfPCell totalCell = new PdfPCell(new Phrase(grandTotDecimal.ToString("C"), TotalFont));
                     totalCell.HorizontalAlignment = Element.ALIGN_RIGHT;
                     table.AddCell(totalCell);
                     
