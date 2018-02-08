@@ -59,7 +59,7 @@
                         <asp:DropDownList ID="SupplierDropDownList" DataSourceID="SupplierDataSource"
                                 DataValueField="Id"
                                 DataTextField="SupplierName"
-                                AppendDataBoundItems = "true"
+                                AppendDataBoundItems = "True"
                                 AutoPostBack="True"
                                 runat="server" Width="180px">
                             <asp:ListItem Text="Please select" Value=""/>

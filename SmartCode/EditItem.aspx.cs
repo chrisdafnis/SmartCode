@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -62,10 +63,11 @@ namespace SmartCode
                 txtDescription.Text = currentProduct.Description;
                 txtBinLocation.Text = currentProduct.BinLocation;
                 txtFullDescription.Text = currentProduct.FullDescription;
-                SupplierDropDownList.SelectedIndex = Convert.ToInt32(currentProduct.SupplierId);
+                GetSupplierResult supplier = db.GetSupplier(currentProduct.SupplierId).Single<GetSupplierResult>();
+                SupplierDropDownList.DataBind();
+                SupplierDropDownList.Items.FindByText(supplier.SupplierName).Selected = true;
                 txtSupplierCode.Text = currentProduct.SupplierCode;
                 quantity = currentProduct.Quantity;
-                //txtQuantity.Text = currentProduct.Quantity.ToString();
                 txtUnitOfMeasure.Text = currentProduct.UnitOfMeasure;
                 txtUnitPrice.Text = currentProduct.UnitPrice.ToString();
             }
@@ -100,7 +102,6 @@ namespace SmartCode
                 //db.up
 
                 db.SubmitChanges();
-                //WriteToLog(currentProduct.ProductId, txtDescription.Text, txtBarcode.Text, "STU", int.Parse(txtQuantity.Text), null, null, null);
                 WriteToLog(currentProduct.ProductId, txtDescription.Text, txtBarcode.Text, "STU", quantity, null, null, null);
             }
             catch (Exception)

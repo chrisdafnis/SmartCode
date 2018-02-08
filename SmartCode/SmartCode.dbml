@@ -375,4 +375,10 @@
     <Parameter Name="SupplierId" Parameter="supplierId" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.GetAllSuppliers" Method="GetAllSuppliers">
+    <ElementType Name="GetAllSuppliersResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SupplierName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

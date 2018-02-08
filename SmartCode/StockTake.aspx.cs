@@ -75,7 +75,7 @@ namespace SmartCode
                         int productId = (int)rowKeys["ProductId"];
                         int locationId = (int)rowKeys["LocationId"];
                         GetPendingStockTakeResult pending = db.GetPendingStockTake(transactionId).ToList<GetPendingStockTakeResult>()[0];
-
+                        GetProductResult product = db.GetProduct(productId).First<GetProductResult>();
                         db.UpdateLocationQuantity(pending.LocationId, pending.ProductId, Convert.ToInt32(actualValue.Text));
                         db.UpdatePendingStockTake(pending.Id, pending.ProductId, pending.Barcode);
                         try
@@ -86,7 +86,7 @@ namespace SmartCode
                         {
 
                         }
-                        WriteToLog(productId,"Stock Take", pending.Barcode, "STU", Convert.ToInt32(actualValue.Text), null, pending.LocationCode, null);
+                        WriteToLog(productId, product.Description, pending.Barcode, "STU", Convert.ToInt32(actualValue.Text), null, pending.LocationCode, null);
 
                         Response.Redirect(Request.RawUrl);
                     }
