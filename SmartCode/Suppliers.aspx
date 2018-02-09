@@ -35,8 +35,7 @@
                     <asp:BoundField DataField="AddressLine5" HeaderText="Address Line 5" SortExpression="AddressLine5" ItemStyle-Width="125px" />
                     <asp:BoundField DataField="ContactNo" HeaderText="Contact Number" SortExpression="ContactNo" ItemStyle-Width="125px" />
                     <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" ItemStyle-Width="125px" />
-                    <asp:BoundField DataField="WebSite" HeaderText="Web Site" SortExpression="WebSite" ItemStyle-Width="125px" />
-                    <%--<asp:HyperLinkColumn DataField="WebSite" HeaderText="Web Site" SortExpression="WebSite" ItemStyle-Width="125px" />--%>
+                    <asp:HyperLinkField DataNavigateUrlFields="WebSite" HeaderText="Web Site" SortExpression="WebSite" DataNavigateUrlFormatString="{0}" target="_blank" DataTextField="WebSite" ItemStyle-Width="125px" />
                     <asp:TemplateField ShowHeader="False" HeaderText="Edit">
                         <ItemTemplate>
                             <asp:LinkButton ID="EditButton"

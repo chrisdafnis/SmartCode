@@ -90,6 +90,23 @@ namespace SmartCode
                         cell.Text = "Web Site";
                 }
             }
+            else if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // do some processing on the 'Website' cells to ensure that the hyperlink will open correctly
+                // get the correct cell
+                TableCell webCell = e.Row.Cells[8];
+                // get the cell contents as a hyperlink
+                System.Web.UI.WebControls.HyperLink link = (System.Web.UI.WebControls.HyperLink)webCell.Controls[0];
+                // process the url so that it is prepended with 'http://' if necessary
+                Uri uri = new Uri(link.Text, UriKind.RelativeOrAbsolute);
+                if (!uri.IsAbsoluteUri) link.NavigateUrl = "http://" + link.Text;
+                else link.NavigateUrl = uri.AbsoluteUri;
+                // set cell value to the altered value, unless it's empty
+                if (((System.Web.UI.WebControls.HyperLink)webCell.Controls[0]).Text != String.Empty)
+                {
+                    ((System.Web.UI.WebControls.HyperLink)webCell.Controls[0]).Text = link.NavigateUrl;
+                }
+            }
         }
 
         protected void OnClickAddSupplier(object sender, EventArgs e)
