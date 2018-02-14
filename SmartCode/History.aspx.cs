@@ -78,74 +78,60 @@ namespace SmartCode
             }
         }
 
-        private void BindBarcodesList()
-        {
-            try
-            {
-                SmartCodeDataContext db = new SmartCodeDataContext();
+        //private void BindBarcodesList()
+        //{
+        //    try
+        //    {
+        //        SmartCodeDataContext db = new SmartCodeDataContext();
 
-                DropDownList ddlBarcodes = (DropDownList)HistoryGridView.HeaderRow.FindControl("ddlBarcodes");
-                // load the ddl with products
-                var products = (from tr in db.TransactionLogs
-                                select tr.Barcode).Distinct();
+        //        DropDownList ddlBarcodes = (DropDownList)HistoryGridView.HeaderRow.FindControl("ddlBarcodes");
+        //        // load the ddl with products
+        //        var products = (from tr in db.TransactionLogs
+        //                        select tr.Barcode).Distinct();
 
-                ddlBarcodes.DataSource = products;
-                ddlBarcodes.DataBind();
-            }
-            catch (Exception)
-            {
+        //        ddlBarcodes.DataSource = products;
+        //        ddlBarcodes.DataBind();
+        //    }
+        //    catch (Exception)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
-        protected void ddlBarcodes_SelectedItemChanged(object sender, EventArgs e)
-        {
-            string ddlVal = ((DropDownList)HistoryGridView.HeaderRow.FindControl("ddlBarcodes")).SelectedValue;
-            BindGridUsingDdl(ddlVal);
-        }
+        //protected void ddlBarcodes_SelectedItemChanged(object sender, EventArgs e)
+        //{
+        //    string ddlVal = ((DropDownList)HistoryGridView.HeaderRow.FindControl("ddlBarcodes")).SelectedValue;
+        //    BindGridUsingDdl(ddlVal);
+        //}
 
-        private void BindGridUsingDdl(string ddlVal)
-        {
-            try
-            {
-                SmartCodeDataContext db = new SmartCodeDataContext();
-                if (ddlVal == "ALL")
-                    ddlVal = String.Empty;
+        //private void BindGridUsingDdl(string ddlVal)
+        //{
+        //    try
+        //    {
+        //        SmartCodeDataContext db = new SmartCodeDataContext();
+        //        if (ddlVal == "ALL")
+        //            ddlVal = String.Empty;
 
-                var transactions = db.GetAllTransactionHistory(ddlVal);
-                //if (ddlVal != "ALL")
-                //{
-                //    transaction = (from tr in db.TransactionLogs
-                //                   join pr in db.Products
-                //                   on tr.ProductId equals pr.ProductId
-                //                   where pr.Barcode == ddlVal
-                //                   select new { pr.Description, tr.Barcode, tr.TransactionType, tr.Quantity, tr.JobNumber, tr.NewLocation, tr.PreviousLocation, tr.DateStamp })
-                //                   .OrderBy(tl => tl.DateStamp).ToList();
-                //}
-                HistoryGridView.DataSource = transactions.ToList<GetAllTransactionHistoryResult>();
-                HistoryGridView.DataBind();
-                BindBarcodesList();
-                DropDownList ddlBarcodes = (DropDownList)HistoryGridView.HeaderRow.FindControl("ddlBarcodes");
-                ddlBarcodes.SelectedValue = ddlVal;
-            }
-            catch (Exception)
-            {
+        //        var transactions = db.GetAllTransactionHistory(ddlVal);
+        //        HistoryGridView.DataSource = transactions.ToList<GetAllTransactionHistoryResult>();
+        //        HistoryGridView.DataBind();
+        //        BindBarcodesList();
+        //        DropDownList ddlBarcodes = (DropDownList)HistoryGridView.HeaderRow.FindControl("ddlBarcodes");
+        //        ddlBarcodes.SelectedValue = ddlVal;
+        //    }
+        //    catch (Exception)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         protected void OnPaging(object sender, GridViewPageEventArgs e)
         {
             HistoryGridView.PageIndex = e.NewPageIndex;
             string ddlVal = ((DropDownList)HistoryGridView.HeaderRow.FindControl("ddlBarcodes")).SelectedValue;
-            BindGridUsingDdl(ddlVal);
+            //BindGridUsingDdl(ddlVal);
+            BindGrid();
         }
-
-        //protected void TransactionsDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
-        //{
-        //    SmartCodeDataContext db = new SmartCodeDataContext();
-        //    e.Result =  db.GetAllTransactionHistory(String.Empty).ToList<GetAllTransactionHistoryResult>();
-        //}
 
         protected void HistoryGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -217,6 +203,7 @@ namespace SmartCode
 
         protected void HistoryGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            ApplyFilter();
             HistoryGridView.PageIndex = e.NewPageIndex;
             HistoryGridView.DataBind();
         }
@@ -264,6 +251,70 @@ namespace SmartCode
                 HistoryGridView.DataSource = dataView;
                 HistoryGridView.DataBind();
             }
+        }
+
+        protected void ButtonFilter_Click(object sender, EventArgs e)
+        {
+            ApplyFilter();
+        }
+
+        private void ApplyFilter()
+        {
+            DateTime? fromDate = Convert.ToDateTime(txtFrom.Text);
+            DateTime? toDate = Convert.ToDateTime(txtTo.Text + " 23:59:59");
+            SmartCodeDataContext db = new SmartCodeDataContext();
+            var transactions = db.GetTransactionHistoryPeriod(fromDate, toDate).ToList();
+            DataTable dataTable = LINQResultToDataTable(transactions);
+            HistoryGridView.DataSource = dataTable;
+            HistoryGridView.DataBind();
+        }
+
+        public DataTable LINQResultToDataTable<T>(IEnumerable<T> Linqlist)
+        {
+            DataTable dt = new DataTable();
+            PropertyInfo[] columns = null;
+
+            if (Linqlist == null) return dt;
+
+            foreach (T Record in Linqlist)
+            {
+
+                if (columns == null)
+                {
+                    columns = ((Type)Record.GetType()).GetProperties();
+                    foreach (PropertyInfo GetProperty in columns)
+                    {
+                        Type colType = GetProperty.PropertyType;
+
+                        if ((colType.IsGenericType) && (colType.GetGenericTypeDefinition()
+                        == typeof(Nullable<>)))
+                        {
+                            colType = colType.GetGenericArguments()[0];
+                        }
+
+                        dt.Columns.Add(new DataColumn(GetProperty.Name, colType));
+                    }
+                }
+
+                DataRow dr = dt.NewRow();
+
+                foreach (PropertyInfo pinfo in columns)
+                {
+                    dr[pinfo.Name] = pinfo.GetValue(Record, null) == null ? DBNull.Value : pinfo.GetValue
+                    (Record, null);
+                }
+
+                dt.Rows.Add(dr);
+            }
+            return dt;
+        }
+
+        protected void ButtonClearFilter_Click(object sender, EventArgs e)
+        {
+            txtFrom.Text = String.Empty;
+            txtTo.Text = String.Empty;
+            BindGrid();
+
         }
     }
 }

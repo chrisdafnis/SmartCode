@@ -22,7 +22,7 @@ namespace SmartCode
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SmartCode3")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="SmartCode")]
 	public partial class SmartCodeDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -51,7 +51,7 @@ namespace SmartCode
     #endregion
 		
 		public SmartCodeDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SmartCodeConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SmartCodeConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -325,6 +325,20 @@ namespace SmartCode
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<GetAllSuppliersResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.CheckSupplier")]
+		public ISingleResult<CheckSupplierResult> CheckSupplier([global::System.Data.Linq.Mapping.ParameterAttribute(Name="SupplierId", DbType="Int")] System.Nullable<int> supplierId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), supplierId);
+			return ((ISingleResult<CheckSupplierResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTransactionHistoryPeriod")]
+		public ISingleResult<GetTransactionHistoryPeriodResult> GetTransactionHistoryPeriod([global::System.Data.Linq.Mapping.ParameterAttribute(Name="From", DbType="DateTime")] System.Nullable<System.DateTime> from, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="To", DbType="DateTime")] System.Nullable<System.DateTime> to)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), from, to);
+			return ((ISingleResult<GetTransactionHistoryPeriodResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -4388,6 +4402,346 @@ namespace SmartCode
 				if ((this._SupplierName != value))
 				{
 					this._SupplierName = value;
+				}
+			}
+		}
+	}
+	
+	public partial class CheckSupplierResult
+	{
+		
+		private int _ProductId;
+		
+		private string _Barcode;
+		
+		private string _Description;
+		
+		private string _BinLocation;
+		
+		private string _FullDescription;
+		
+		private System.Nullable<int> _SupplierId;
+		
+		private string _SupplierCode;
+		
+		private int _Quantity;
+		
+		private string _UnitOfMeasure;
+		
+		private System.Nullable<double> _UnitPrice;
+		
+		public CheckSupplierResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int NOT NULL")]
+		public int ProductId
+		{
+			get
+			{
+				return this._ProductId;
+			}
+			set
+			{
+				if ((this._ProductId != value))
+				{
+					this._ProductId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Barcode", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
+		public string Barcode
+		{
+			get
+			{
+				return this._Barcode;
+			}
+			set
+			{
+				if ((this._Barcode != value))
+				{
+					this._Barcode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(30)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BinLocation", DbType="VarChar(5)")]
+		public string BinLocation
+		{
+			get
+			{
+				return this._BinLocation;
+			}
+			set
+			{
+				if ((this._BinLocation != value))
+				{
+					this._BinLocation = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullDescription", DbType="VarChar(50)")]
+		public string FullDescription
+		{
+			get
+			{
+				return this._FullDescription;
+			}
+			set
+			{
+				if ((this._FullDescription != value))
+				{
+					this._FullDescription = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupplierId", DbType="Int")]
+		public System.Nullable<int> SupplierId
+		{
+			get
+			{
+				return this._SupplierId;
+			}
+			set
+			{
+				if ((this._SupplierId != value))
+				{
+					this._SupplierId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupplierCode", DbType="VarChar(25)")]
+		public string SupplierCode
+		{
+			get
+			{
+				return this._SupplierCode;
+			}
+			set
+			{
+				if ((this._SupplierCode != value))
+				{
+					this._SupplierCode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
+		public int Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this._Quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitOfMeasure", DbType="VarChar(5)")]
+		public string UnitOfMeasure
+		{
+			get
+			{
+				return this._UnitOfMeasure;
+			}
+			set
+			{
+				if ((this._UnitOfMeasure != value))
+				{
+					this._UnitOfMeasure = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Float")]
+		public System.Nullable<double> UnitPrice
+		{
+			get
+			{
+				return this._UnitPrice;
+			}
+			set
+			{
+				if ((this._UnitPrice != value))
+				{
+					this._UnitPrice = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetTransactionHistoryPeriodResult
+	{
+		
+		private string _Product;
+		
+		private string _Barcode;
+		
+		private string _TransactionType;
+		
+		private System.Nullable<int> _Quantity;
+		
+		private string _JobNumber;
+		
+		private string _NewLocation;
+		
+		private string _PreviousLocation;
+		
+		private System.Nullable<System.DateTime> _DateStamp;
+		
+		public GetTransactionHistoryPeriodResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Product", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string Product
+		{
+			get
+			{
+				return this._Product;
+			}
+			set
+			{
+				if ((this._Product != value))
+				{
+					this._Product = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Barcode", DbType="VarChar(15) NOT NULL", CanBeNull=false)]
+		public string Barcode
+		{
+			get
+			{
+				return this._Barcode;
+			}
+			set
+			{
+				if ((this._Barcode != value))
+				{
+					this._Barcode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionType", DbType="VarChar(3)")]
+		public string TransactionType
+		{
+			get
+			{
+				return this._TransactionType;
+			}
+			set
+			{
+				if ((this._TransactionType != value))
+				{
+					this._TransactionType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
+		public System.Nullable<int> Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this._Quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JobNumber", DbType="VarChar(21)")]
+		public string JobNumber
+		{
+			get
+			{
+				return this._JobNumber;
+			}
+			set
+			{
+				if ((this._JobNumber != value))
+				{
+					this._JobNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NewLocation", DbType="VarChar(10)")]
+		public string NewLocation
+		{
+			get
+			{
+				return this._NewLocation;
+			}
+			set
+			{
+				if ((this._NewLocation != value))
+				{
+					this._NewLocation = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreviousLocation", DbType="VarChar(10)")]
+		public string PreviousLocation
+		{
+			get
+			{
+				return this._PreviousLocation;
+			}
+			set
+			{
+				if ((this._PreviousLocation != value))
+				{
+					this._PreviousLocation = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateStamp", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateStamp
+		{
+			get
+			{
+				return this._DateStamp;
+			}
+			set
+			{
+				if ((this._DateStamp != value))
+				{
+					this._DateStamp = value;
 				}
 			}
 		}

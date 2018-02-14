@@ -146,8 +146,27 @@ namespace SmartCode
         private void DeleteSupplier(int supplierId)
         {
             SmartCodeDataContext db = new SmartCodeDataContext();
-            db.DeleteSupplier(supplierId);
-            Response.Redirect("Suppliers.aspx");
+            int assignedProductCount = db.CheckSupplier(supplierId).Count<CheckSupplierResult>();
+            if (assignedProductCount == 0)
+            {
+                db.DeleteSupplier(supplierId);
+                Server.TransferRequest(Request.Url.AbsolutePath, false);
+            }
+            else
+            {
+                //Page.Display
+                //string message = "Cannot delete assigned suppliers";
+                //System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                //sb.Append("<script type = 'text/javascript'>");
+                //sb.Append("window.onload=function(){");
+                //sb.Append("alert('");
+                //sb.Append(message);
+                //sb.Append("')};");
+                //sb.Append("</script>");
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", sb.ToString());
+                //SupplierGridView.DataBind();
+            }
+           Response.Redirect("Suppliers.aspx");
         }
     }
 }

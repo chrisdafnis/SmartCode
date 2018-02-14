@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="History" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="History.aspx.cs" Inherits="SmartCode.History" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %> 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
     <asp:LinqDataSource ID="ItemsDataSource" 
@@ -10,7 +11,18 @@
             <asp:LinqDataSource ID="SupplierDataSource" runat="server" ContextTypeName="SmartCode.SmartCodeDataContext" EntityTypeName="" TableName="Suppliers">
             </asp:LinqDataSource>
         <nav class="jumbotron">
-            <p>History</p>
+            <p>
+            <asp:Label ID="lblTitle" runat="server" Text="Label">Transaction History</asp:Label>
+            <nav class="normal">
+                <asp:Label ID="lblFilterPeriod" runat="server" Text="Label" CssClass="Label">Filter Period</asp:Label><br ID="break"/>
+                <asp:Label ID="Label1" runat="server" Text="Label" CssClass="Label">From:</asp:Label><asp:TextBox ID="txtFrom" runat="server" Width="150px" CssClass="TextBox"/>  
+                <cc1:CalendarExtender ID="CalendarFrom" PopupButtonID="imgPopup" runat="server" TargetControlID="txtFrom" Format="dd/MM/yyyy" />  
+                <asp:Label ID="Label2" runat="server" Text="Label" CssClass="Label">To:</asp:Label><asp:TextBox ID="txtTo" runat="server"  Width="150px" CssClass="TextBox"/>  
+                <cc1:CalendarExtender ID="CalendarTo" PopupButtonID="imgPopup" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" />  
+                <br />
+                <asp:Button ID="ButtonFilter" runat="server" Text="Filter" OnClick="ButtonFilter_Click" CssClass="button" />
+                <asp:Button ID="ButtonClearFilter" runat="server" Text="Clear" OnClick="ButtonClearFilter_Click" CssClass="button" />
+            </nav>
             <nav class="dbtable" style="overflow:scroll;">
                 <asp:GridView ID="HistoryGridView"
                     AllowPaging="True"

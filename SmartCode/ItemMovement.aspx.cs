@@ -161,90 +161,93 @@ namespace SmartCode
                 {
                     BindGrid();
                     DataView dv = new DataView(ItemMovementGridView.DataSource as DataTable);
-                    dv.Sort = ViewState["SortColumn"].ToString() + " " + ViewState["SortDirection"].ToString();
-                    DataTable dt = dv.ToTable();
-
-                    Document pdfDoc = new Document();
-                    pdfDoc.SetPageSize(PageSize.A4);
-                    pdfDoc.SetPageSize(PageSize.A4.Rotate());
-                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-                    pdfDoc.Open();
-                    iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
-                    iTextSharp.text.Font bolldfont5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5, Font.BOLD);
-
-                    PdfPTable table = new PdfPTable(dt.Columns.Count);
-                    PdfPRow row = null;
-                    
-                    // add report title
-                    Font ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 15, Font.BOLD);
-                    String title = string.Format("{0} Report", lblTitle.Text);
-                    Chunk chunkCols = new Chunk(title, ColFont);
-                    PdfPCell cell = new PdfPCell(new Paragraph(chunkCols));
-                    cell.Colspan = dt.Columns.Count;
-                    cell.Padding = 5;
-                    table.AddCell(cell);
-
-                    // add some further details, product reporting period
-                    ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 10, Font.BOLD);
-                    string item = ddlItem.SelectedItem.Text;
-                    title = string.Format("{0}, {1}-{2}", item, txtFrom.Text, txtTo.Text);
-                    chunkCols = new Chunk(title, ColFont);
-                    cell = new PdfPCell(new Paragraph(chunkCols));
-                    cell.Colspan = dt.Columns.Count;
-                    cell.Padding = 5;
-                    table.AddCell(cell);
-
-                    table.HeaderRows = 4;
-
-                    float[] widths = new float[] { 0f, 4f, 4f, 4f, 4f, 4f, 4f, 4f };
-
-                    table.SetWidths(widths);
-
-                    table.WidthPercentage = 100;
-                    int iCol = 0;
-                    string colname = "";
-                    cell = new PdfPCell(new Phrase("Products"));
-
-                    cell.Colspan = dt.Columns.Count;
-
-                    foreach (DataColumn c in dt.Columns)
+                    if (ItemMovementGridView.DataSource != null)
                     {
+                        dv.Sort = ViewState["SortColumn"].ToString() + " " + ViewState["SortDirection"].ToString();
+                        DataTable dt = dv.ToTable();
 
-                        table.AddCell(new Phrase(c.ColumnName, bolldfont5));
-                    }
+                        Document pdfDoc = new Document();
+                        pdfDoc.SetPageSize(PageSize.A4);
+                        pdfDoc.SetPageSize(PageSize.A4.Rotate());
+                        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+                        pdfDoc.Open();
+                        iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
+                        iTextSharp.text.Font bolldfont5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5, Font.BOLD);
 
-                    foreach (DataRow r in dt.Rows)
-                    {
-                        if (dt.Rows.Count > 0)
+                        PdfPTable table = new PdfPTable(dt.Columns.Count);
+                        PdfPRow row = null;
+
+                        // add report title
+                        Font ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 15, Font.BOLD);
+                        String title = string.Format("{0} Report", lblTitle.Text);
+                        Chunk chunkCols = new Chunk(title, ColFont);
+                        PdfPCell cell = new PdfPCell(new Paragraph(chunkCols));
+                        cell.Colspan = dt.Columns.Count;
+                        cell.Padding = 5;
+                        table.AddCell(cell);
+
+                        // add some further details, product reporting period
+                        ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 10, Font.BOLD);
+                        string item = ddlItem.SelectedItem.Text;
+                        title = string.Format("{0}, {1}-{2}", item, txtFrom.Text, txtTo.Text);
+                        chunkCols = new Chunk(title, ColFont);
+                        cell = new PdfPCell(new Paragraph(chunkCols));
+                        cell.Colspan = dt.Columns.Count;
+                        cell.Padding = 5;
+                        table.AddCell(cell);
+
+                        table.HeaderRows = 4;
+
+                        float[] widths = new float[] { 0f, 4f, 4f, 4f, 4f, 4f, 4f, 4f };
+
+                        table.SetWidths(widths);
+
+                        table.WidthPercentage = 100;
+                        int iCol = 0;
+                        string colname = "";
+                        cell = new PdfPCell(new Phrase("Products"));
+
+                        cell.Colspan = dt.Columns.Count;
+
+                        foreach (DataColumn c in dt.Columns)
                         {
-                            table.AddCell(new Phrase(r[0].ToString(), font5));
-                            table.AddCell(new Phrase(r[1].ToString(), font5));
-                            table.AddCell(new Phrase(r[2].ToString(), font5));
-                            table.AddCell(new Phrase(r[3].ToString(), font5));
-                            table.AddCell(new Phrase(r[4].ToString(), font5));
-                            table.AddCell(new Phrase(r[5].ToString(), font5));
-                            table.AddCell(new Phrase(r[6].ToString(), font5));
-                            table.AddCell(new Phrase(r[7].ToString(), font5));
+
+                            table.AddCell(new Phrase(c.ColumnName, bolldfont5));
                         }
+
+                        foreach (DataRow r in dt.Rows)
+                        {
+                            if (dt.Rows.Count > 0)
+                            {
+                                table.AddCell(new Phrase(r[0].ToString(), font5));
+                                table.AddCell(new Phrase(r[1].ToString(), font5));
+                                table.AddCell(new Phrase(r[2].ToString(), font5));
+                                table.AddCell(new Phrase(r[3].ToString(), font5));
+                                table.AddCell(new Phrase(r[4].ToString(), font5));
+                                table.AddCell(new Phrase(r[5].ToString(), font5));
+                                table.AddCell(new Phrase(r[6].ToString(), font5));
+                                table.AddCell(new Phrase(r[7].ToString(), font5));
+                            }
+                        }
+
+                        ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 6, Font.BOLD);
+                        String footer = string.Format("Report generated at: {0}", DateTime.Now.ToString());
+                        chunkCols = new Chunk(footer, ColFont);
+                        cell = new PdfPCell(new Paragraph(chunkCols));
+                        cell.Colspan = dt.Columns.Count;
+                        cell.Padding = 5;
+                        table.AddCell(cell);
+
+                        pdfDoc.AddTitle(lblTitle.Text);
+                        pdfDoc.Add(table);
+                        pdfDoc.Close();
+
+                        Response.ContentType = "application/pdf";
+                        Response.AddHeader("content-disposition", "attachment;filename=ProductMovementReport.pdf");
+                        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                        Response.Write(pdfDoc);
+                        Response.End();
                     }
-
-                    ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 6, Font.BOLD);
-                    String footer = string.Format("Report generated at: {0}", DateTime.Now.ToString());
-                    chunkCols = new Chunk(footer, ColFont);
-                    cell = new PdfPCell(new Paragraph(chunkCols));
-                    cell.Colspan = dt.Columns.Count;
-                    cell.Padding = 5;
-                    table.AddCell(cell);
-
-                    pdfDoc.AddTitle(lblTitle.Text);
-                    pdfDoc.Add(table);
-                    pdfDoc.Close();
-
-                    Response.ContentType = "application/pdf";
-                    Response.AddHeader("content-disposition", "attachment;filename=ProductMovementReport.pdf");
-                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    Response.Write(pdfDoc);
-                    Response.End();
                 }
             }
         }

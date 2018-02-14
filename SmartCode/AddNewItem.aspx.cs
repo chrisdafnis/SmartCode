@@ -70,7 +70,7 @@ namespace SmartCode
             {
                 SmartCodeDataContext db = new SmartCodeDataContext();
                 db.InsertProduct(ref productId, barcode, description, binLocation, fullDescription, selectedSupplier, supplierCode, /*quantity,*/ unitOfMeasure, unitPrice);
-                db.InsertLocation(productId, binLocation, barcode, 0, "BULK");
+                db.InsertLocation(productId, binLocation, barcode, 0, "PICK");
                 db.SubmitChanges();
             }
             catch (Exception ex)

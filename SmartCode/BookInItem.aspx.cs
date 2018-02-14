@@ -114,7 +114,7 @@ namespace SmartCode
                     // location doesn't exist, so create new one
                     loc = new Location();
                     loc.LocationCode = product.BinLocation;
-                    loc.LocationType = "BULK";
+                    loc.LocationType = "PICK";
                     loc.ProductId = product.ProductId;
                     loc.Product.Description = product.Description;
                     loc.Quantity = quantity;
